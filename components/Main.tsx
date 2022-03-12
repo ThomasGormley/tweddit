@@ -10,7 +10,7 @@ type RedditJson = {};
 
 export function Main({}) {
     const token = '-h3oSbFfls22mO_UkawmuLphG9sD47Q';
-    const { data: homePageJson, isLoading } = useQuery({
+    const { data: homePageJson, isLoading, isError } = useQuery({
         queryKey: 'home',
         queryFn: async () => {
             return fetch('https://oauth.reddit.com/hot/.json', {
@@ -25,14 +25,14 @@ export function Main({}) {
     return (
         <main className="z-[1] flex w-full max-w-[600px] flex-col  border border-dim-border font-display">
             <div className="sticky top-1 z-[3] px-[16px]">
-                <span className="text-20px font-semibold"> Home</span>
+                <span className="text-20px font-semibold">Home</span>
             </div>
             {isLoading && (
                 <div className="flex w-full justify-center py-[12px]">
                     <LoadingSpinner />
                 </div>
             )}
-            {homePageJson && !isLoading && (
+            {homePageJson && !isLoading && !isError && (
                 <Feed data={homePageJson.data.children} />
             )}
         </main>

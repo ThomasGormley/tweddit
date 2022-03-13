@@ -1,7 +1,8 @@
-import '../styles/globals.css';
-import '../public/fonts/fonts.css';
-import type { AppProps } from 'next/app';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import "../styles/globals.css";
+import "../public/fonts/fonts.css";
+import type { AppProps } from "next/app";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { SessionProvider } from "next-auth/react";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -11,10 +12,12 @@ const queryClient = new QueryClient({
     },
 });
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     return (
         <QueryClientProvider client={queryClient}>
-            <Component {...pageProps} />
+            <SessionProvider session={session}>
+                <Component {...pageProps} />
+            </SessionProvider>
         </QueryClientProvider>
     );
 }

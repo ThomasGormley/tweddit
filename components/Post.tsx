@@ -1,22 +1,28 @@
-import PostThumbnail from './PostThumbnail';
-import React from 'react';
-import QuickActions from './QuickActions';
-import { useQuery } from 'react-query';
-import formatTimeDistanceToNowShortSuffix from '../lib/util/formatTimeToNowShortSuffix';
+import PostThumbnail from "./PostThumbnail";
+import React from "react";
+import QuickActions from "./QuickActions";
+import { useQuery } from "react-query";
+import formatTimeDistanceToNowShortSuffix from "../lib/util/formatTimeToNowShortSuffix";
+import { useSession } from "next-auth/react";
 
 type TQuickActions = { type: string; data?: number }[];
-const token = '-h3oSbFfls22mO_UkawmuLphG9sD47Q';
 
 export default function Post({ post }: any) {
-    const { data: subredditData } = useQuery({
+    const { data: session, status } = useSession();
+
+    if (status === "loading") {
+        return <p>Loading...</p>;
+    }
+
+    const { data: subredditData, isLoading } = useQuery({
         queryKey: `about-${post.data.subreddit}`,
         queryFn: async () => {
             return fetch(
                 `https://oauth.reddit.com/r/${post.data.subreddit}/about`,
                 {
-                    method: 'GET',
+                    method: "GET",
                     headers: {
-                        Authorization: `bearer ${token}`,
+                        Authorization: `bearer ${session?.accessToken}`,
                     },
                 },
             ).then((res) => res.json());
@@ -25,19 +31,19 @@ export default function Post({ post }: any) {
 
     const quickActions: TQuickActions = [
         {
-            type: 'comments',
+            type: "comments",
             data: post.data.num_comments,
         },
         {
-            type: 'crossposts',
+            type: "crossposts",
             data: post.data.num_crossposts,
         },
         {
-            type: 'upvotes',
+            type: "upvotes",
             data: post.data.ups,
         },
         {
-            type: 'share',
+            type: "share",
         },
     ];
 
@@ -47,7 +53,9 @@ export default function Post({ post }: any) {
     return (
         <article className="px-[16px] text-sm">
             <div className="flex flex-row items-start py-[12px]">
-                <PostThumbnail src={subredditData?.data?.icon_img} />
+                {!isLoading && (
+                    <PostThumbnail src={subredditData?.data?.icon_img} />
+                )}
                 <div className="w-full">
                     <div className="flex items-center space-x-[4px]">
                         <div>

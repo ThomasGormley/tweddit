@@ -1,23 +1,50 @@
-import type { GetServerSidePropsContext, NextPage } from "next";
-
+import type {
+    GetServerSideProps,
+    GetServerSidePropsContext,
+    NextPage,
+} from "next";
 import { Main } from "../components/Main";
-
 import { Navigation } from "../components/Navigation";
+import { getSession, signIn, signOut, useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import { useRouter } from "next/router";
+import { Feed } from "../components/Feed";
+import { useEffect } from "react";
 
-import { getSession } from "next-auth/react";
+const Index: NextPage = () => {
+    const { status, data: session } = useSession();
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            signIn("anon", { redirect: false }).then((response) => {
+                if (response.ok) {
+                    // anonymous login complete
+                    //  - status will be 'authenticated'
+                    //  - data.isLoggedIn will be true
+                } else {
+                    // anonymous login failed, check response.error and display an error
+                }
+            });
+        }
+    }, [status]);
 
-const Index: NextPage = () => (
-    <div className="mx-auto flex h-full min-h-screen  bg-dim text-white">
-        <Navigation />
-
-        <Main />
-    </div>
-);
+    return (
+        <div className="mx-auto flex h-full min-h-screen  bg-dim text-white">
+            <Navigation />
+            <Main />
+        </div>
+    );
+};
 
 export default Index;
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export const getServerSideProps: GetServerSideProps<{
+    session: Session | null;
+}> = async (context) => {
     const session = await getSession(context);
 
-    return { props: { session } };
-}
+    return {
+        props: {
+            session,
+        },
+    };
+};

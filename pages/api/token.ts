@@ -9,11 +9,11 @@ export default async function authToken(
     req: NextApiRequest,
     res: NextApiResponse<any>,
 ) {
-    // console.log(req, res);
     const token: any = await getToken({
         req,
         secret: process.env.NEXTAUTH_SECRET,
     });
+    console.log("token api", token);
 
     try {
         return res.status(200).json({

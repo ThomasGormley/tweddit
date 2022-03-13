@@ -17,12 +17,8 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
-        "plugin:import/errors",
-        "plugin:import/warnings",
         "prettier",
-        "plugin:jsx-a11y/recommended",
+        "plugin:@next/next/recommended",
         "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser",
@@ -33,7 +29,7 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": ["react", "@typescript-eslint"],
+    "plugins": ["plugin:@next/next/recommended", "@typescript-eslint"],
     "rules": {
         "indent": 0,
         "linebreak-style": ["error", "windows"],
@@ -44,9 +40,12 @@
         "jsx-a11y/anchor-is-valid": 0,
         "jsx-a11y/no-static-element-interactions": 0,
         "jsx-a11y/click-events-have-key-events": 0,
-        "prefer-const": ["error", {
-            "destructuring": "all",
-            "ignoreReadBeforeAssign": false
-        }]
+        "prefer-const": [
+            "error",
+            {
+                "destructuring": "all",
+                "ignoreReadBeforeAssign": false
+            }
+        ]
     }
 }

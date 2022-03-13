@@ -1,3 +1,5 @@
+import { JWT } from "next-auth/jwt";
+
 export async function getPublicAccessToken() {
     try {
         const url =
@@ -25,7 +27,7 @@ export async function getPublicAccessToken() {
         const publicToken = await response.json();
 
         console.log("publicToken", publicToken);
-        
+
         if (!response.ok) {
             throw publicToken;
         }
@@ -46,7 +48,15 @@ export async function getPublicAccessToken() {
  * `accessToken` and `accessTokenExpires`. If an error occurs,
  * returns the old token and an error property
  */
-export async function refreshAccessToken(token: { [key: string]: string }) {
+export async function refreshAccessToken(token: JWT) {
+    if (!token.refreshToken) {
+        const newToken = await getPublicAccessToken();
+
+        return {
+            ...token,
+            accessToken: newToken.access_token,
+        };
+    }
     try {
         const url =
             "https://www.reddit.com/api/v1/access_token?" +
@@ -86,4 +96,13 @@ export async function refreshAccessToken(token: { [key: string]: string }) {
             error: "RefreshAccessTokenError",
         };
     }
+}
+
+export async function refreshToken(token: JWT) {
+    const isRefreshable = Boolean(token.refreshToken);
+    if (isRefreshable) {
+        return await refreshAccessToken(token);
+    }
+
+    return await getPublicAccessToken();
 }

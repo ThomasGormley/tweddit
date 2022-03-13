@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
-import config from "../../../lib/config";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { getPublicAccessToken, refreshAccessToken } from "../../../lib/reddit";
+import { getPublicAccessToken, refreshToken } from "../../../lib/reddit";
+import { JWT } from "next-auth/jwt";
 
 export default NextAuth({
     // Configure one or more authentication providers
@@ -35,7 +35,7 @@ export default NextAuth({
             credentials: {},
             async authorize() {
                 const token = await getPublicAccessToken();
-                console.log('token-authorize cb', token)
+                console.log("token-authorize cb", token);
                 return token;
             },
         }),
@@ -68,9 +68,9 @@ export default NextAuth({
             }
 
             // Access token has expired, try to update it
-            return refreshAccessToken(token);
+            return refreshToken(token);
         },
-        async session({ session, token }: any) {
+        async session({ session, token }: { session: any; token: JWT }) {
             session.user = token?.user;
             session.accessToken = token?.accessToken;
             session.accessTokenExpires = token?.accessTokenExpires;

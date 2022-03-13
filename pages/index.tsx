@@ -13,24 +13,17 @@ import { useEffect } from "react";
 
 const Index: NextPage = () => {
     const { status, data: session } = useSession();
+
     useEffect(() => {
         if (status === "unauthenticated") {
-            signIn("anon", { redirect: false }).then((response) => {
-                if (response.ok) {
-                    // anonymous login complete
-                    //  - status will be 'authenticated'
-                    //  - data.isLoggedIn will be true
-                } else {
-                    // anonymous login failed, check response.error and display an error
-                }
-            });
+            signIn("anon", { redirect: false });
         }
     }, [status]);
 
     return (
         <div className="mx-auto flex h-full min-h-screen  bg-dim text-white">
             <Navigation />
-            <pre className="absolute top-0 bg-black z-10">{JSON.stringify(session, null, 2)}</pre>
+            {/* <pre className="absolute top-0 bg-black z-10">{JSON.stringify(session, null, 2)}</pre> */}
             <Main />
         </div>
     );
@@ -42,6 +35,10 @@ export const getServerSideProps: GetServerSideProps<{
     session: Session | null;
 }> = async (context) => {
     const session = await getSession(context);
+
+    if (!session?.accessToken) {
+        signIn("anon", { redirect: false });
+    }
 
     return {
         props: {

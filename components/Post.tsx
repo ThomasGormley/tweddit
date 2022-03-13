@@ -4,27 +4,26 @@ import QuickActions from "./QuickActions";
 import { useQuery } from "react-query";
 import formatTimeDistanceToNowShortSuffix from "../lib/util/formatTimeToNowShortSuffix";
 import { useSession } from "next-auth/react";
+import { PostType } from "../types/reddit";
 
 type TQuickActions = { type: string; data?: number }[];
 
-export default function Post({ post }: any) {
-    const { data: session, status } = useSession();
+type PostProps = {
+    post: PostType;
+};
 
-    if (status === "loading") {
-        return <p>Loading...</p>;
-    }
+export default function Post({ post }: PostProps) {
+    const { data: session } = useSession();
 
     const { data: subredditData, isLoading } = useQuery({
         queryKey: `about-${post.data.subreddit}`,
-        queryFn: async () => fetch(
-                `https://oauth.reddit.com/r/${post.data.subreddit}/about`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: `bearer ${session?.accessToken}`,
-                    },
+        queryFn: async () =>
+            fetch(`https://oauth.reddit.com/r/${post.data.subreddit}/about`, {
+                method: "GET",
+                headers: {
+                    Authorization: `bearer ${session?.accessToken}`,
                 },
-            ).then((res) => res.json()),
+            }).then((res) => res.json()),
     });
 
     const quickActions: TQuickActions = [

@@ -1,6 +1,6 @@
 import LoadingSpinner from "./LoadingSpinner";
-import { formatDistanceToNow } from "date-fns";
-import { formatDistance } from "date-fns/esm";
+import { formatDistanceToNow , formatDistance } from "date-fns";
+
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
@@ -23,14 +23,12 @@ export function Main({}: any) {
         isError,
     } = useQuery({
         queryKey: "home",
-        queryFn: async () => {
-            return fetch("https://oauth.reddit.com/hot/.json", {
+        queryFn: async () => fetch("https://oauth.reddit.com/hot/.json", {
                 method: "GET",
                 headers: {
                     Authorization: `bearer ${session.accessToken}`,
                 },
-            }).then((res) => res.json());
-        },
+            }).then((res) => res.json()),
     });
 
     const handleSignIn = () => {

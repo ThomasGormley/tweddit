@@ -69,12 +69,10 @@ export default NextAuth({
             userinfo: "https://oauth.reddit.com/api/v1/me",
             // token: config.urls.api["auth-token"],
             token: "https://www.reddit.com/api/v1/access_token",
-            profile: (profile) => {
-                return {
+            profile: (profile) => ({
                     id: profile.id,
                     name: profile.name,
-                };
-            },
+                }),
         },
     ],
     callbacks: {

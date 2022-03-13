@@ -15,13 +15,11 @@ export function Navigation() {
                     <div className="flex flex-col items-center justify-center">
                         {Array.from({
                             length: 5,
-                        }).map((item: any, i: number) => {
-                            return (
+                        }).map((item: any, i: number) => (
                                 <span key={i} className="p-[12px]">
                                     <HomeIcon className="h-6 w-6" />
                                 </span>
-                            );
-                        })}
+                            ))}
                     </div>
                 </div>
 

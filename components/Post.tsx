@@ -16,8 +16,7 @@ export default function Post({ post }: any) {
 
     const { data: subredditData, isLoading } = useQuery({
         queryKey: `about-${post.data.subreddit}`,
-        queryFn: async () => {
-            return fetch(
+        queryFn: async () => fetch(
                 `https://oauth.reddit.com/r/${post.data.subreddit}/about`,
                 {
                     method: "GET",
@@ -25,8 +24,7 @@ export default function Post({ post }: any) {
                         Authorization: `bearer ${session?.accessToken}`,
                     },
                 },
-            ).then((res) => res.json());
-        },
+            ).then((res) => res.json()),
     });
 
     const quickActions: TQuickActions = [

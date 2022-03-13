@@ -1,24 +1,22 @@
-import type { GetServerSideProps, NextPage } from "next";
-import { loadStaticPaths } from "next/dist/server/dev/static-paths-worker";
-import { Main } from "../components/Main";
-import Head from "next/head";
-import Image from "next/image";
-import { Navigation } from "../components/Navigation";
-import { getSession, useSession } from "next-auth/react";
-import { json } from "stream/consumers";
+import type { GetServerSidePropsContext, NextPage } from "next";
 
-const Index: NextPage = () => {
-    return (
-        <div className="mx-auto flex h-full min-h-screen  bg-dim text-white">
-            <Navigation />
-            <Main />
-        </div>
-    );
-};
+import { Main } from "../components/Main";
+
+import { Navigation } from "../components/Navigation";
+
+import { getSession } from "next-auth/react";
+
+const Index: NextPage = () => (
+    <div className="mx-auto flex h-full min-h-screen  bg-dim text-white">
+        <Navigation />
+
+        <Main />
+    </div>
+);
 
 export default Index;
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
     const session = await getSession(context);
 
     return { props: { session } };

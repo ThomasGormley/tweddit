@@ -5,7 +5,13 @@ import type {
 } from "next";
 import { Main } from "../components/Main";
 import { Navigation } from "../components/Navigation";
-import { getSession, signIn, signOut, useSession } from "next-auth/react";
+import {
+    getCsrfToken,
+    getSession,
+    signIn,
+    signOut,
+    useSession,
+} from "next-auth/react";
 import { Session } from "next-auth";
 import { useRouter } from "next/router";
 import { Feed } from "../components/Feed";
@@ -35,10 +41,6 @@ export const getServerSideProps: GetServerSideProps<{
     session: Session | null;
 }> = async (context) => {
     const session = await getSession(context);
-
-    if (!session?.accessToken) {
-        signIn("anon", { redirect: false });
-    }
 
     return {
         props: {

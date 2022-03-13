@@ -8,22 +8,6 @@ import { useRouter } from "next/router";
 // type RedditJson = {};
 
 export function Main() {
-    // const {
-    //     data: homePageJson,
-    //     isLoading,
-    //     isError,
-    // } = useQuery({
-    //     queryKey: "home",
-    //     enabled: status !== "authenticated",
-    //     queryFn: async () =>
-    //         fetch("https://oauth.reddit.com/hot/.json", {
-    //             method: "GET",
-    //             headers: {
-    //                 Authorization: `bearer ${session.accessToken}`,
-    //             },
-    //         }).then((res) => res.json()),
-    // });
-
     const handleSignIn = () => {
         signIn("reddit");
     };

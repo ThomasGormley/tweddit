@@ -18,6 +18,8 @@ function useRedditQuery({ router }: UseRedditDataProps) {
 
     return useQuery<any, Error>({
         queryKey: dir,
+        enabled: Boolean(session?.accessToken),
+        retry: 3,
         // enabled: status !== "authenticated",
         queryFn: async () =>
             fetch(`https://oauth.reddit.com${dir}/${sortBy}.json`, {

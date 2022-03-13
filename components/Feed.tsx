@@ -15,7 +15,7 @@ export function Feed() {
         <div className="flex max-w-[600px] flex-col divide-y divide-dim-border border-dim-border">
             {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
             {data &&
-                data.data.children.map((post: any) => (
+                data?.data?.children.map((post: any) => (
                     <Post key={post.data.title} post={post} />
                 ))}
         </div>

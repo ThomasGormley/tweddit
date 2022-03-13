@@ -30,6 +30,7 @@ const Index: NextPage = () => {
     return (
         <div className="mx-auto flex h-full min-h-screen  bg-dim text-white">
             <Navigation />
+            <pre className="absolute top-0 bg-black z-10">{JSON.stringify(session, null, 2)}</pre>
             <Main />
         </div>
     );

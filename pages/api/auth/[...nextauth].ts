@@ -35,6 +35,7 @@ export default NextAuth({
             credentials: {},
             async authorize() {
                 const token = await getPublicAccessToken();
+                console.log('token-authorize cb', token)
                 return token;
             },
         }),

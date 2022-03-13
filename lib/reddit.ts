@@ -4,12 +4,15 @@ export async function getPublicAccessToken() {
             "https://www.reddit.com/api/v1/access_token?" +
             new URLSearchParams({
                 grant_type: "client_credentials",
-                device_id: "DO_NOT_TRACK_THIS_DEVICE",
+                device_id: "DONTTRACKTHISDEVICEPLEASE",
             } as any);
 
         const b64String = Buffer.from(
             `${process.env.REDDIT_CLIENT_ID}:${process.env.REDDIT_CLIENT_SECRET}`,
         ).toString("base64");
+
+        console.log("b64String", b64String);
+
         const response = await fetch(url, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -21,6 +24,8 @@ export async function getPublicAccessToken() {
 
         const publicToken = await response.json();
 
+        console.log("publicToken", publicToken);
+        
         if (!response.ok) {
             throw publicToken;
         }

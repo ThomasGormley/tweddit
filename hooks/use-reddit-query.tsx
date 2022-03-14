@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import Error from "next/error";
 import { NextRouter } from "next/router";
 import { useQuery } from "react-query";
-import { Reddit } from "../types/reddit";
+import { RedditResponse } from "../types/reddit";
 
 type UseRedditDataProps = {
     router: NextRouter;
@@ -10,19 +10,21 @@ type UseRedditDataProps = {
 
 function useRedditQuery({ router }: UseRedditDataProps) {
     const { data: session } = useSession();
-    const { route } = router;
+    const { route, asPath, query } = router;
+
+    const isThread = query.slug?.includes("comments");
 
     const sortBy = "hot";
-    const r = "";
-    const dir = r === "" ? "/" : "/r/askreddit";
 
-    return useQuery<Reddit, Error>({
-        queryKey: dir,
+    const buildPath = isThread ? asPath : `${asPath}/${sortBy}/.json?html_decode=1`;
+
+    return useQuery<RedditResponse | Array<RedditResponse>, Error>({
+        queryKey: asPath,
         enabled: Boolean(session?.accessToken),
         retry: 3,
         // enabled: status !== "authenticated",
         queryFn: async () =>
-            fetch(`https://oauth.reddit.com${route}${sortBy}.json`, {
+            fetch(`https://oauth.reddit.com${buildPath}`, {
                 method: "GET",
                 headers: {
                     Authorization: `bearer ${session?.accessToken}`,

@@ -1,19 +1,15 @@
-import PostThumbnail from "./PostThumbnail";
-import React from "react";
-import QuickActions from "./QuickActions";
-import { useQuery } from "react-query";
-import formatTimeDistanceToNowShortSuffix from "../lib/util/formatTimeToNowShortSuffix";
 import { useSession } from "next-auth/react";
-import { PostType } from "../types/reddit";
+import { useRouter } from "next/router";
+import React from "react";
+import { useQuery } from "react-query";
+import { handleOnClick } from "./Post";
+import PostThumbnail from "./PostThumbnail";
+import { PostProps, PostQuickActions } from "./post";
 
-type TQuickActions = { type: string; data?: number }[];
-
-type PostProps = {
-    post: PostType;
-};
-
-export default function Post({ post }: PostProps) {
+export default function HeadPost({ post }: PostProps) {
     const { data: session } = useSession();
+    const router = useRouter();
+    const { query } = router;
 
     const { data: subredditData, isLoading } = useQuery({
         queryKey: `about-${post.data.subreddit}`,
@@ -26,7 +22,7 @@ export default function Post({ post }: PostProps) {
             }).then((res) => res.json()),
     });
 
-    const quickActions: TQuickActions = [
+    const quickActions: PostQuickActions = [
         {
             type: "comments",
             data: post.data.num_comments,
@@ -44,17 +40,17 @@ export default function Post({ post }: PostProps) {
         },
     ];
 
-    const postedAt = new Date(post.data.created * 1000);
-    const postedAgo = formatTimeDistanceToNowShortSuffix(postedAt);
-
     return (
-        <article className="px-[16px] text-sm">
+        <article
+            className="px-[16px] text-sm"
+            onClick={() => handleOnClick(router, post.data.permalink)}
+        >
             <div className="flex flex-row items-start py-[12px]">
                 {!isLoading && (
                     <PostThumbnail src={subredditData?.data?.icon_img} />
                 )}
                 <div className="w-full">
-                    <div className="flex items-center space-x-[4px]">
+                    <div className="mb-[10px] flex flex-col items-start">
                         <div>
                             <a href="" className="text-15px font-bold ">
                                 {post.data.author}
@@ -62,22 +58,13 @@ export default function Post({ post }: PostProps) {
                         </div>
                         <div>
                             <span className="text-dim-grey">
-                                {post.data.subreddit_name_prefixed}
+                                {`u/${post.data.author.toLowerCase()}`}
                             </span>
                         </div>
-                        <span className="text-15px text-dim-grey">·</span>
-                        <time
-                            dateTime={postedAt.toISOString()}
-                            className="text-15px font-normal text-dim-grey"
-                        >
-                            {postedAgo}
-                        </time>
                     </div>
-                    <p>{post.data.title}</p>
-
-                    <QuickActions actions={quickActions} />
                 </div>
             </div>
+            <p className="mb-4 text-23px">{post.data.title}</p>
         </article>
     );
 }

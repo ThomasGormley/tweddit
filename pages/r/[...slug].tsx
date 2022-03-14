@@ -1,10 +1,11 @@
-import type { GetServerSideProps, NextPage } from "next";
-import { Main } from "../components/Main";
-import { Navigation } from "../components/Navigation";
-import { getSession, signIn, useSession } from "next-auth/react";
+import { NextPage, GetServerSideProps } from "next";
+import { Session } from "next-auth";
+import { useSession, signIn, getSession } from "next-auth/react";
 import { useEffect } from "react";
+import { Main } from "../../components/Main";
+import { Navigation } from "../../components/Navigation";
 
-const Index: NextPage = () => {
+const Subreddit: NextPage = () => {
     const { status, data: session } = useSession();
 
     useEffect(() => {
@@ -22,7 +23,7 @@ const Index: NextPage = () => {
     );
 };
 
-export default Index;
+export default Subreddit;
 
 export const getServerSideProps: GetServerSideProps<{
     session: Session | null;

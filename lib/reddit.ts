@@ -32,6 +32,11 @@ export async function getPublicAccessToken() {
             throw publicToken;
         }
 
+        return {
+            ...publicToken,
+            accessToken: publicToken.access_token,
+        };
+
         return publicToken;
     } catch (error) {
         console.log(error);
@@ -103,6 +108,6 @@ export async function refreshToken(token: JWT) {
     if (isRefreshable) {
         return await refreshAccessToken(token);
     }
-
+    console.log('isRefreshable', isRefreshable)
     return await getPublicAccessToken();
 }

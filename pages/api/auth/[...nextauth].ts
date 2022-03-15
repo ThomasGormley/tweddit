@@ -35,13 +35,18 @@ export default NextAuth({
             credentials: {},
             async authorize() {
                 const token = await getPublicAccessToken();
-                console.log("token-authorize cb", token);
                 return token;
             },
         }),
     ],
     callbacks: {
         async jwt({ token, account, user }: any) {
+            console.log("token", token);
+            console.log("==========");
+            console.log("account", account);
+            console.log("==========");
+            console.log("user", user);
+            console.log("==========");
             if (account || (account && user)) {
                 switch (account.provider) {
                     case "reddit":
@@ -57,7 +62,6 @@ export default NextAuth({
                             accessToken: user.access_token,
                             accessTokenExpires:
                                 Date.now() + user.expires_in * 1000,
-                            user,
                         };
                 }
             }

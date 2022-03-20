@@ -10,6 +10,7 @@ import clsx from "clsx";
 import { match } from "../../lib/util/match";
 import HeadPost from "./HeadPost";
 import type { PostProps, PostQuickActions } from "../../types/post";
+import MediaThumbnail from "../MediaThumbnail";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);
@@ -100,6 +101,10 @@ export default function Post({ post }: PostProps) {
                     </div>
 
                     <p>{isThread ? post.data.body : post.data.title}</p>
+
+                    {post.data.preview?.enabled && (
+                        <MediaThumbnail preview={post.data.preview} />
+                    )}
                     <QuickActions actions={quickActions} />
                 </div>
             </div>

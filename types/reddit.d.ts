@@ -133,3 +133,173 @@ export type Children = {
 };
 
 export type Kind = "t1" | "t3" | "Listing" | "more";
+
+export enum AwardSubType {
+    Appreciation = "APPRECIATION",
+    Community = "COMMUNITY",
+    Global = "GLOBAL",
+    Group = "GROUP",
+    Premium = "PREMIUM",
+}
+
+export enum AwardType {
+    Community = "community",
+    Global = "global",
+}
+
+export enum Format {
+    Apng = "APNG",
+    PNG = "PNG",
+}
+
+export interface ResizedIcon {
+    url: string;
+    width: number;
+    height: number;
+    format?: Format | null;
+}
+
+export interface TiersByRequiredAwarding {
+    resized_icons: ResizedIcon[];
+    awardings_required: number;
+    static_icon: ResizedIcon;
+    resized_static_icons: ResizedIcon[];
+    icon: ResizedIcon;
+}
+
+export interface FlairRichtext {
+    e: E;
+    t?: string;
+    a?: string;
+    u?: string;
+}
+
+export enum E {
+    Emoji = "emoji",
+    Text = "text",
+}
+
+export enum FlairTextColor {
+    Dark = "dark",
+    Light = "light",
+}
+
+export enum FlairType {
+    Richtext = "richtext",
+    Text = "text",
+}
+
+export type Edited = boolean | number;
+
+export interface GalleryData {
+    items: Item[];
+}
+
+export interface Item {
+    media_id: string;
+    id: number;
+}
+
+export interface Gildings {
+    gid_1?: number;
+    gid_3?: number;
+    gid_2?: number;
+}
+
+export interface Media {
+    reddit_video?: RedditVideo;
+    oembed?: Oembed;
+    type?: string;
+}
+
+export interface Oembed {
+    provider_url: string;
+    description: string;
+    title: string;
+    author_name: string;
+    height: number;
+    width: number;
+    html: string;
+    thumbnail_width: number;
+    version: string;
+    provider_name: string;
+    thumbnail_url: string;
+    type: string;
+    thumbnail_height: number;
+}
+
+export interface RedditVideo {
+    bitrate_kbps: number;
+    fallback_url: string;
+    height: number;
+    width: number;
+    scrubber_media_url: string;
+    dash_url: string;
+    duration: number;
+    hls_url: string;
+    is_gif: boolean;
+    transcoding_status: TranscodingStatus;
+}
+
+export enum TranscodingStatus {
+    Completed = "completed",
+}
+
+export interface MediaEmbed {
+    content?: string;
+    width?: number;
+    scrolling?: boolean;
+    height?: number;
+    media_domain_url?: string;
+}
+
+export interface MediaMetadatum {
+    status: string;
+    e: string;
+    m: string;
+    p: S[];
+    s: S;
+    id: string;
+}
+
+export interface S {
+    y: number;
+    x: number;
+    u: string;
+}
+
+export enum WhitelistStatus {
+    AllAds = "all_ads",
+    NoAds = "no_ads",
+    PromoAdultNsfw = "promo_adult_nsfw",
+    SomeAds = "some_ads",
+}
+
+export interface Preview {
+    images: Image[];
+    enabled: boolean;
+    reddit_video_preview?: RedditVideo;
+}
+
+export interface Image {
+    source: ResizedIcon;
+    resolutions: ResizedIcon[];
+    variants: Variants;
+    id: string;
+}
+
+export interface Variants {
+    gif?: GIF;
+    mp4?: GIF;
+    obfuscated?: GIF;
+    nsfw?: GIF;
+}
+
+export interface GIF {
+    source: ResizedIcon;
+    resolutions: ResizedIcon[];
+}
+
+export enum SubredditType {
+    Public = "public",
+}

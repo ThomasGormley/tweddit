@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useQuery } from "react-query";
 import type { PostProps, PostQuickActions } from "../../types/post";
+import MediaThumbnail from "../MediaThumbnail";
 import { handleOnClick } from "./Post";
 import PostThumbnail from "./PostThumbnail";
 
@@ -68,7 +69,13 @@ export default function HeadPost({ post }: PostProps) {
                     </div>
                 </div>
             </div>
-            <p className="mb-4 text-23px">{post.data.title}</p>
+            <div className="mb-4">
+                <p className="mb-4 text-23px">{post.data.title}</p>
+                {post.data.preview?.enabled && (
+                    <MediaThumbnail preview={post.data.preview} />
+                )}
+            </div>
+
             <div className="mb-4 space-x-1 text-15px text-dim-grey">
                 <span>
                     {postedAt.toLocaleTimeString([], {

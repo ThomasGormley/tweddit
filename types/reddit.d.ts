@@ -19,6 +19,7 @@ export type RedditPostData = {
     hide_score: boolean;
     name: string;
     body: string;
+    replies?: RedditResponse;
     quarantine: boolean;
     link_flair_text_color: FlairTextColor;
     upvote_ratio: number;
@@ -131,4 +132,4 @@ export type Children = {
     data: RedditPostData;
 };
 
-export type Kind = "t1" | "t3";
+export type Kind = "t1" | "t3" | "Listing" | "more";

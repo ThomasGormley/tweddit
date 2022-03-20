@@ -11,16 +11,14 @@ export default function PostThumbnail({ src }: any) {
     const fallbackSrc = "https://via.placeholder.com/150";
 
     return (
-        <div className="mr-[12px] flex-shrink-0 items-start ">
-            <img
-                className="aspect-square h-[48px] w-[48px] rounded-full"
-                src={src}
-                onError={(e) => {
-                    e.currentTarget.onerror = null;
-                    e.currentTarget.src = fallbackSrc;
-                }}
-                alt=""
-            />
-        </div>
+        <img
+            className="aspect-square h-[48px] w-[48px] rounded-full"
+            src={src}
+            onError={(e) => {
+                e.currentTarget.onerror = null;
+                e.currentTarget.src = fallbackSrc;
+            }}
+            alt=""
+        />
     );
 }

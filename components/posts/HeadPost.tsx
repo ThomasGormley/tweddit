@@ -2,14 +2,16 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
 import { useQuery } from "react-query";
+import type { PostProps, PostQuickActions } from "../../types/post";
 import { handleOnClick } from "./Post";
 import PostThumbnail from "./PostThumbnail";
-import { PostProps, PostQuickActions } from "./post";
 
 export default function HeadPost({ post }: PostProps) {
     const { data: session } = useSession();
     const router = useRouter();
     const { query } = router;
+
+    const postedAt = new Date(post.data.created * 1000);
 
     const { data: subredditData, isLoading } = useQuery({
         queryKey: `about-${post.data.subreddit}`,
@@ -46,9 +48,11 @@ export default function HeadPost({ post }: PostProps) {
             onClick={() => handleOnClick(router, post.data.permalink)}
         >
             <div className="flex flex-row items-start py-[12px]">
-                {!isLoading && (
-                    <PostThumbnail src={subredditData?.data?.icon_img} />
-                )}
+                <div className="mr-[12px] flex-shrink-0">
+                    {!isLoading && (
+                        <PostThumbnail src={subredditData?.data?.icon_img} />
+                    )}
+                </div>
                 <div className="w-full">
                     <div className="mb-[10px] flex flex-col items-start">
                         <div>
@@ -65,6 +69,22 @@ export default function HeadPost({ post }: PostProps) {
                 </div>
             </div>
             <p className="mb-4 text-23px">{post.data.title}</p>
+            <div className="mb-4 space-x-1 text-15px text-dim-grey">
+                <span>
+                    {postedAt.toLocaleTimeString([], {
+                        hour: "numeric",
+                        minute: "2-digit",
+                    })}
+                </span>
+                <span>·</span>
+                <span>
+                    {postedAt.toLocaleDateString([], {
+                        month: "short",
+                        day: "2-digit",
+                        year: "numeric",
+                    })}
+                </span>
+            </div>
         </article>
     );
 }

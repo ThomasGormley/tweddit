@@ -11,6 +11,7 @@ module.exports = {
                 dim: "#15202B",
                 "dim-border": "#38444D",
                 "dim-grey": "#8899A6",
+                "dim-reply-link": "#425364",
                 primary: "#1D9BF0",
             },
             fontFamily: {

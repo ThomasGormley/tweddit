@@ -15,21 +15,32 @@ function useRedditQuery({ router }: UseRedditDataProps) {
     const isThread = query.slug?.includes("comments");
 
     const sortBy = "hot";
+    console.log(asPath);
+    const buildPath = isThread
+        ? asPath
+        : `${asPath}${sortBy}/.json?html_decode=1`;
 
-    const buildPath = isThread ? asPath : `${asPath}/${sortBy}/.json?html_decode=1`;
+    console.log("buildPath", buildPath);
 
-    return useQuery<RedditResponse | Array<RedditResponse>, Error>({
+    return useQuery<Array<RedditResponse>, Error>({
         queryKey: asPath,
         enabled: Boolean(session?.accessToken),
         retry: 3,
-        // enabled: status !== "authenticated",
-        queryFn: async () =>
-            fetch(`https://oauth.reddit.com${buildPath}`, {
+        queryFn: async () => {
+            const res = await fetch(`https://oauth.reddit.com${buildPath}`, {
                 method: "GET",
                 headers: {
                     Authorization: `bearer ${session?.accessToken}`,
                 },
-            }).then((res) => res.json()),
+            });
+            
+            const json = await res.json();
+
+            if (json instanceof Array) {
+                return json;
+            }
+            return [json];
+        },
     });
 }
 

@@ -15,7 +15,7 @@ export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);
 };
 
-export default function Post({ post }: PostProps) {
+export default function ReplyHeadPost({ post }: PostProps) {
     const { data: session } = useSession();
     const router = useRouter();
     const { query } = router;
@@ -56,27 +56,15 @@ export default function Post({ post }: PostProps) {
 
     return (
         <article
-            className={clsx(
-                "border-y border-dim-border px-[16px] text-sm",
-                isThread && "border-none",
-            )}
+            className="border-t border-dim-border px-[16px] text-sm"
             onClick={() => handleOnClick(router, post.data.permalink)}
         >
-            <div
-                className={clsx(
-                    `relative flex h-full flex-row items-start pt-[12px]`,
-                )}
-            >
-                <div className="mr-[12px] flex h-full flex-shrink-0 flex-col items-center space-y-[4px]">
-                    {isThread && (
-                        <div className="absolute top-0 h-[10px] w-[2px] bg-dim-reply-link"></div>
-                    )}
+            <div className={clsx(`flex h-full flex-row items-start pt-[12px]`)}>
+                <div className="mr-[12px] flex h-full flex-shrink-0 flex-col items-center space-y-1">
                     {!isLoading && (
                         <PostThumbnail src={subredditData?.data?.icon_img} />
                     )}
-                    {isThread && (
-                        <div className="w-[2px] flex-grow justify-center bg-dim-reply-link"></div>
-                    )}
+                    <div className="w-[2px] flex-grow justify-center bg-dim-reply-link"></div>
                 </div>
                 <div className="w-full">
                     <div className="flex items-center space-x-[4px]">

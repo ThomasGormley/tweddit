@@ -5,36 +5,35 @@ import DisplayPost from "./posts/DisplayPost";
 import PostsList from "./posts/PostsList";
 
 type ThreadProps = {
-    data: RedditResponse | Array<RedditResponse>;
+    data: Array<RedditResponse>;
 };
 
 export default function Thread({ data }: ThreadProps) {
     return (
         <Fragment>
-            {data instanceof Array &&
-                data.map((post: RedditResponse, i: number) => {
-                    const isHead = i === 0;
-                    if (isHead) {
+            {data.map((post: RedditResponse, i: number) => {
+                const isHead = i === 0;
+                if (isHead) {
+                    return (
+                        <DisplayPost
+                            key={post.data.children[0].data.id}
+                            post={post.data.children[0]}
+                            type="head"
+                        />
+                    );
+                }
+                return post.data.children.map((post) => {
+                    if (post.kind === "t1") {
                         return (
                             <DisplayPost
-                                key={post.data.children[0].data.id}
-                                post={post.data.children[0]}
-                                type="head"
+                                key={post.data.id}
+                                post={post}
+                                type="reply"
                             />
                         );
                     }
-                    return post.data.children.map((post) => {
-                        if (post.kind === "t1") {
-                            return (
-                                <DisplayPost
-                                    key={post.data.id}
-                                    post={post}
-                                    type="reply"
-                                />
-                            );
-                        }
-                    });
-                })}
+                });
+            })}
         </Fragment>
     );
 }

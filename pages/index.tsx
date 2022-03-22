@@ -3,6 +3,8 @@ import { Main } from "../components/Main";
 import { Navigation } from "../components/Navigation";
 import { getSession, signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
+import { Session } from "next-auth";
+import MobileNavigation from "../components/MobileNavigation";
 
 const Index: NextPage = () => {
     const { status, data: session } = useSession();
@@ -14,8 +16,9 @@ const Index: NextPage = () => {
     }, [status]);
 
     return (
-        <div className="mx-auto flex h-full min-h-screen  bg-dim text-white">
+        <div className="mx-auto flex h-full min-h-screen flex-row  bg-dim text-white">
             <Navigation />
+            <MobileNavigation />
             {/* <pre className="absolute top-0 bg-black z-10">{JSON.stringify(session, null, 2)}</pre> */}
             <Main />
         </div>

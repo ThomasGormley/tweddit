@@ -16,7 +16,7 @@ export function Main() {
     };
 
     return (
-        <main className="z-[1] flex w-full max-w-[600px] flex-col  border border-dim-border font-display">
+        <main className="z-[1] flex w-full max-w-[600px] flex-col  sm:border border-dim-border font-display">
             <div className="sticky top-0 z-[3] bg-dim px-[16px] backdrop-blur-md">
                 <span className="text-20px font-semibold">Home</span>
                 <div className="flex justify-end space-x-5">

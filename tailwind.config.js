@@ -1,5 +1,5 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
-
+const safeAreaPlugin = require("tailwindcss-safe-area");
 module.exports = {
     content: [
         "./pages/**/*.{js,ts,jsx,tsx}",
@@ -16,6 +16,7 @@ module.exports = {
                 "dim-grey": "#8899A6",
                 "dim-reply-link": "#425364",
                 primary: "#1D9BF0",
+                'off-white': '#F7F9F9'
             },
             fontFamily: {
                 display: [
@@ -28,6 +29,7 @@ module.exports = {
                 "13px": "13px",
                 "14px": "14px",
                 "15px": "15px",
+                "17px": "17px",
                 "20px": "20px",
                 "23px": "23px",
                 base: ["16px", "24px"],
@@ -36,5 +38,5 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [safeAreaPlugin],
 };

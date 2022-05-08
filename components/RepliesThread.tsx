@@ -1,14 +1,10 @@
 import React, { Fragment } from "react";
-import type {
-    RedditPostData,
-    RedditResponse,
-    RedditResponseData,
-} from "../types/reddit";
-import DisplayPost from "./posts/DisplayPost";
+import { CommentsData } from "../types/CommentsResult";
+import Post from "./posts/Post";
 import { ShowReplies } from "./ShowReplies";
 
 type ThreadProps = {
-    data: RedditResponseData;
+    data: CommentsData;
 };
 
 export default function RepliesThread({ data }: ThreadProps) {
@@ -16,17 +12,15 @@ export default function RepliesThread({ data }: ThreadProps) {
         <Fragment>
             {data.children.map((post, i: number) => {
                 if (post.kind === "t1" && i == 0) {
-                    return (
-                        <DisplayPost
-                            key={post.data.id}
-                            post={post}
-                            type="post"
-                        />
-                    );
+                    return <Post key={post.data.id} post={post} />;
                 }
                 if (post.kind === "more") {
-                    console.log(post);
-                    return <ShowReplies key={post.data.id} />;
+                    return (
+                        <ShowReplies
+                            key={post.data.id}
+                            data={data.children[0].data.replies?.data}
+                        />
+                    );
                 }
             })}
         </Fragment>

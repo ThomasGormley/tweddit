@@ -2,10 +2,16 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
 import { useQuery } from "react-query";
-import type { PostProps, PostQuickActions } from "../../types/post";
+import { Comment } from "../../types/CommentsResult";
+import type { PostQuickActions } from "../../types/post";
+import { Thread } from "../../types/ThreadsResult";
 import MediaThumbnail from "../MediaThumbnail";
 import { handleOnClick } from "./Post";
 import PostThumbnail from "./PostThumbnail";
+
+type PostProps = {
+    post: Thread;
+};
 
 export default function HeadPost({ post }: PostProps) {
     const { data: session } = useSession();
@@ -24,24 +30,6 @@ export default function HeadPost({ post }: PostProps) {
                 },
             }).then((res) => res.json()),
     });
-
-    const quickActions: PostQuickActions = [
-        {
-            type: "comments",
-            data: post.data.num_comments,
-        },
-        {
-            type: "crossposts",
-            data: post.data.num_crossposts,
-        },
-        {
-            type: "upvotes",
-            data: post.data.ups,
-        },
-        {
-            type: "share",
-        },
-    ];
 
     return (
         <article

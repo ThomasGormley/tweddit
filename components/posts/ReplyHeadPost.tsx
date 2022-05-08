@@ -1,21 +1,20 @@
 import PostThumbnail from "./PostThumbnail";
-import React, { Fragment } from "react";
+import React from "react";
 import QuickActions from "../QuickActions";
 import { useQuery } from "react-query";
 import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowShortSuffix";
 import { useSession } from "next-auth/react";
-import { Children } from "../../types/reddit";
 import { NextRouter, useRouter } from "next/router";
 import clsx from "clsx";
-import { match } from "../../lib/util/match";
-import HeadPost from "./HeadPost";
 import type { PostProps, PostQuickActions } from "../../types/post";
+import { Thread, ThreadResult } from "../../types/ThreadsResult";
+import { Comment } from "../../types/CommentsResult";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);
 };
 
-export default function ReplyHeadPost({ post }: PostProps) {
+export default function ReplyHeadPost({ post }: { post: Comment }) {
     const { data: session } = useSession();
     const router = useRouter();
     const { query } = router;
@@ -40,7 +39,7 @@ export default function ReplyHeadPost({ post }: PostProps) {
         },
         {
             type: "crossposts",
-            data: post.data.num_crossposts,
+            data: post.data.num_reports ?? undefined,
         },
         {
             type: "upvotes",
@@ -87,7 +86,7 @@ export default function ReplyHeadPost({ post }: PostProps) {
                         </time>
                     </div>
 
-                    <p>{isThread ? post.data.body : post.data.title}</p>
+                    <p>{post.data.body}</p>
                     <QuickActions actions={quickActions} />
                 </div>
             </div>

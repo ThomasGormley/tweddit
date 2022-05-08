@@ -1,40 +1,23 @@
-import type { GetServerSideProps, NextPage } from "next";
-import { Main } from "../components/Main";
-import { Navigation } from "../components/Navigation";
-import { getSession, signIn, useSession } from "next-auth/react";
-import { useEffect } from "react";
+import type { GetServerSideProps } from "next";
 import { Session } from "next-auth";
-import MobileNavigation from "../components/MobileNavigation";
+import { getSession } from "next-auth/react";
+import Banner from "../components/Banner";
+import { Feed } from "../components/Feed";
+import BasePage, {
+    getServerSideProps as baseGetServerSideProps,
+} from "./base.page";
 
-const Index: NextPage = () => {
-    const { status, data: session } = useSession();
-
-    useEffect(() => {
-        if (status === "unauthenticated") {
-            signIn("anon", { redirect: false });
-        }
-    }, [status]);
-
+function Index() {
     return (
-        <div className="mx-auto flex h-full min-h-screen flex-row  bg-dim text-white">
-            <Navigation />
-            <MobileNavigation />
-            {/* <pre className="absolute top-0 bg-black z-10">{JSON.stringify(session, null, 2)}</pre> */}
-            <Main />
-        </div>
+        <BasePage>
+            <main className="flex w-full max-w-[600px] flex-col border-dim-border font-display text-off-white sm:border">
+                <Banner />
+                <Feed />
+            </main>
+        </BasePage>
     );
-};
+}
 
 export default Index;
 
-export const getServerSideProps: GetServerSideProps<{
-    session: Session | null;
-}> = async (context) => {
-    const session = await getSession(context);
-
-    return {
-        props: {
-            session,
-        },
-    };
-};
+export const getServerSideProps = baseGetServerSideProps;

@@ -8,10 +8,11 @@ type MediaThumbnailProps = {
 export default function MediaThumbnail({ preview }: MediaThumbnailProps) {
     return (
         <Fragment>
-            {preview.images.map((img) => {
+            {preview.images.map((img, i) => {
                 return (
                     <img
-                        src={img.resolutions[2].url.replaceAll("&amp;", "&")}
+                        key={i}
+                        src={img.resolutions[2]?.url.replaceAll("&amp;", "&")}
                         className="mt-2 rounded-xl border border-dim-border"
                     />
                 );

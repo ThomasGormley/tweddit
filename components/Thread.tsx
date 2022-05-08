@@ -1,39 +1,42 @@
 import React, { Fragment } from "react";
-import { Children, RedditResponse, RedditResponseData } from "../types/reddit";
-import Post from "./posts/Post";
-import DisplayPost from "./posts/DisplayPost";
-import PostsList from "./posts/PostsList";
+import { Thread, ThreadResult } from "../types/ThreadsResult";
+import Replies from "./posts/ReplyPost";
+import HeadPost from "./posts/HeadPost";
+import { useRouter } from "next/router";
+import useRedditQuery from "../hooks/use-reddit-query";
+import LoadingSpinner from "./LoadingSpinner";
+import { Comment, CommentsResult } from "../types/CommentsResult";
 
 type ThreadProps = {
-    data: Array<RedditResponse>;
+    data: Array<ThreadResult>;
 };
 
-export default function Thread({ data }: ThreadProps) {
+export default function ThreadDisplay() {
+    const router = useRouter();
+
+    const { data, isLoading } = useRedditQuery<CommentsResult>({
+        router,
+    });
+
+    if (isLoading || !data) {
+        return (
+            <div className="flex w-full justify-center">
+                <LoadingSpinner />
+            </div>
+        );
+    }
+
+    // @ts-ignore
+    const [headPostData, commentsData]: [ThreadResult, CommentsResult] = data;
+    const replyComments = commentsData.data.children.filter(
+        (comment) => comment.kind === "t1",
+    );
     return (
-        <Fragment>
-            {data.map((post: RedditResponse, i: number) => {
-                const isHead = i === 0;
-                if (isHead) {
-                    return (
-                        <DisplayPost
-                            key={post.data.children[0].data.id}
-                            post={post.data.children[0]}
-                            type="head"
-                        />
-                    );
-                }
-                return post.data.children.map((post) => {
-                    if (post.kind === "t1") {
-                        return (
-                            <DisplayPost
-                                key={post.data.id}
-                                post={post}
-                                type="reply"
-                            />
-                        );
-                    }
-                });
-            })}
-        </Fragment>
+        <div className="flex max-w-[600px] flex-col ">
+            {/* Head node - start of thread */}
+            <HeadPost post={headPostData.data.children[0]} />
+            {/* All the reply nodes */}
+            <Replies comments={replyComments} />
+        </div>
     );
 }

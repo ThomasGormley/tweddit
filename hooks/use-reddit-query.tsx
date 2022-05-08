@@ -2,17 +2,24 @@ import { useSession } from "next-auth/react";
 import Error from "next/error";
 import { NextRouter } from "next/router";
 import { useQuery } from "react-query";
-import { RedditResponse } from "../types/reddit";
+import { CommentsResult } from "../types/CommentsResult";
+import { ThreadResult } from "../types/ThreadsResult";
 
 type UseRedditDataProps = {
     router: NextRouter;
 };
 
-function useRedditQuery({ router }: UseRedditDataProps) {
+function useRedditQuery<ApiReturnType = ThreadResult>({
+    router,
+}: UseRedditDataProps) {
     const { data: session } = useSession();
-    const { route, asPath, query } = router;
+    let { route, asPath, query } = router;
 
     const isThread = query.slug?.includes("comments");
+
+    if (isThread && asPath.charAt(asPath.length) != "/") {
+        asPath = asPath + "/";
+    }
 
     const sortBy = "hot";
     console.log(asPath);
@@ -22,7 +29,7 @@ function useRedditQuery({ router }: UseRedditDataProps) {
 
     console.log("buildPath", buildPath);
 
-    return useQuery<Array<RedditResponse>, Error>({
+    return useQuery<Array<ApiReturnType>, Error>({
         queryKey: asPath,
         enabled: Boolean(session?.accessToken),
         retry: 3,
@@ -33,12 +40,14 @@ function useRedditQuery({ router }: UseRedditDataProps) {
                     Authorization: `bearer ${session?.accessToken}`,
                 },
             });
-            
+
             const json = await res.json();
 
             if (json instanceof Array) {
                 return json;
             }
+
+            console.log("json", json);
             return [json];
         },
     });

@@ -1,22 +1,21 @@
 import PostThumbnail from "./PostThumbnail";
-import React, { Fragment } from "react";
+import React from "react";
 import QuickActions from "../QuickActions";
 import { useQuery } from "react-query";
 import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowShortSuffix";
 import { useSession } from "next-auth/react";
-import { Children } from "../../types/reddit";
 import { NextRouter, useRouter } from "next/router";
 import clsx from "clsx";
-import { match } from "../../lib/util/match";
-import HeadPost from "./HeadPost";
 import type { PostProps, PostQuickActions } from "../../types/post";
 import MediaThumbnail from "../MediaThumbnail";
+import { ChildData, Thread } from "../../types/ThreadsResult";
+import { Comment } from "../../types/CommentsResult";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);
 };
 
-export default function Post({ post }: PostProps) {
+export default function Post({ post }: { post: Thread }) {
     const { data: session } = useSession();
     const router = useRouter();
     const { query } = router;
@@ -41,7 +40,7 @@ export default function Post({ post }: PostProps) {
         },
         {
             type: "crossposts",
-            data: post.data.num_crossposts,
+            data: 0,
         },
         {
             type: "upvotes",
@@ -65,7 +64,7 @@ export default function Post({ post }: PostProps) {
         >
             <div
                 className={clsx(
-                    `relative flex h-full flex-row items-start pt-[12px]`,
+                    `relative flex h-full flex-row items-start break-all pt-[12px]`,
                 )}
             >
                 <div className="mr-[12px] flex h-full flex-shrink-0 flex-col items-center space-y-[4px]">
@@ -100,7 +99,7 @@ export default function Post({ post }: PostProps) {
                         </time>
                     </div>
 
-                    <p>{isThread ? post.data.body : post.data.title}</p>
+                    <p>{isThread ? post.data.selftext : post.data.title}</p>
 
                     {post.data.preview?.enabled && (
                         <MediaThumbnail preview={post.data.preview} />

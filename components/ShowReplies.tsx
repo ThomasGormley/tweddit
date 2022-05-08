@@ -1,16 +1,47 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
+import { RedditPostData, RedditResponseData } from "../types/reddit";
+import DisplayPost from "./posts/DisplayPost";
+import RepliesThread from "./RepliesThread";
 
-export function ShowReplies({}) {
+type ShowReplies = {
+    data: RedditResponseData;
+};
+
+export function ShowReplies({ data }: ShowReplies) {
+    const [showReplies, setShowReplies] = useState(false);
     return (
-        <button type="button" className="flex flex-row py-[8px] pl-[16px]">
-            <div className="mr-[12px] flex h-[16px] basis-[48px] flex-col items-center justify-between self-center">
-                <div className="h-[2px] w-[2px] bg-dim-reply-link"></div>
-                <div className="h-[2px] w-[2px] bg-dim-reply-link"></div>
-                <div className="h-[2px] w-[2px] bg-dim-reply-link"></div>
-            </div>
-            <div className="">
-                <span className="text-15px text-[#1D9BF0]">Show replies</span>
-            </div>
-        </button>
+        <Fragment>
+            {!showReplies && (
+                <button
+                    type="button"
+                    className="flex flex-row py-[8px] pl-[16px]"
+                    onClick={() => setShowReplies(true)}
+                >
+                    <div className="mr-[12px] flex h-[16px] basis-[48px] flex-col items-center justify-between self-center">
+                        <div className="h-[2px] w-[2px] bg-dim-reply-link"></div>
+                        <div className="h-[2px] w-[2px] bg-dim-reply-link"></div>
+                        <div className="h-[2px] w-[2px] bg-dim-reply-link"></div>
+                    </div>
+                    <div className="">
+                        <span className="text-15px text-[#1D9BF0]">
+                            Show replies
+                        </span>
+                    </div>
+                </button>
+            )}
+
+            {/* {data && data.children.map((post, i: number) => {
+                if (post.kind === "t1" && i == 0) {
+                    return (
+                        <DisplayPost
+                            key={post.data.id}
+                            post={post}
+                            type="post"
+                        />
+                    );
+                }
+            })} */}
+            {data && showReplies && <RepliesThread data={data} />}
+        </Fragment>
     );
 }

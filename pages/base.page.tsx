@@ -1,11 +1,15 @@
-import { NextPage, GetServerSideProps } from "next";
+import { GetServerSideProps } from "next";
 import { Session } from "next-auth";
-import { useSession, signIn, getSession } from "next-auth/react";
-import { useEffect } from "react";
-import { Main } from "../../components/Main";
-import { Navigation } from "../../components/Navigation";
+import { getSession, signIn, useSession } from "next-auth/react";
+import React, { PropsWithChildren, ReactNode, useEffect } from "react";
+import MobileNavigation from "../components/MobileNavigation";
+import { Navigation } from "../components/Navigation";
 
-const Subreddit: NextPage = () => {
+type BasePageProps = PropsWithChildren<{
+    component?: string;
+}>;
+
+export default function BasePage({ children }: BasePageProps) {
     const { status, data: session } = useSession();
 
     useEffect(() => {
@@ -17,19 +21,21 @@ const Subreddit: NextPage = () => {
     return (
         <div className="mx-auto flex h-full min-h-screen  bg-dim text-white">
             <Navigation />
+            <MobileNavigation />
             {/* <pre className="absolute top-0 bg-black z-10">{JSON.stringify(session, null, 2)}</pre> */}
-            <Main />
+            {children}
         </div>
     );
-};
-
-export default Subreddit;
+}
 
 export const getServerSideProps: GetServerSideProps<{
     session: Session | null;
 }> = async (context) => {
+    console.log("=================");
+    console.log("Base getServerSideProps");
+    console.log("=================");
+    
     const session = await getSession(context);
-
     return {
         props: {
             session,

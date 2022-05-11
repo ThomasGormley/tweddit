@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Thread, ThreadResult } from "../types/ThreadsResult";
-import Replies from "./posts/ReplyPost";
+import Replies from "./posts/Replies";
 import HeadPost from "./posts/HeadPost";
 import { useRouter } from "next/router";
 import useRedditQuery from "../hooks/use-reddit-query";

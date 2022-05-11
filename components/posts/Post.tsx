@@ -15,13 +15,18 @@ export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);
 };
 
-export default function Post({ post }: { post: Thread }) {
+type Post = Comment | Thread;
+
+export default function Post({ post }: { post: Post }) {
     const { data: session } = useSession();
     const router = useRouter();
-    const { query } = router;
 
-    const isThread = query.slug?.includes("comments");
+    const isThreadPredicate = (post: Post): post is Comment => {
+        return "body" in post.data;
+    };
 
+    const isThread = isThreadPredicate(post);
+    console.log("isThread", isThreadPredicate(post));
     const { data: subredditData, isLoading } = useQuery({
         queryKey: `about-${post.data.subreddit}`,
         queryFn: async () =>
@@ -62,11 +67,7 @@ export default function Post({ post }: { post: Thread }) {
             )}
             onClick={() => handleOnClick(router, post.data.permalink)}
         >
-            <div
-                className={clsx(
-                    `relative flex h-full flex-row items-start break-all pt-[12px]`,
-                )}
-            >
+            <div className="relative flex h-full flex-row items-start break-all pt-[12px]">
                 <div className="mr-[12px] flex h-full flex-shrink-0 flex-col items-center space-y-[4px]">
                     {isThread && (
                         <div className="absolute top-0 h-[10px] w-[2px] bg-dim-reply-link"></div>
@@ -99,9 +100,9 @@ export default function Post({ post }: { post: Thread }) {
                         </time>
                     </div>
 
-                    <p>{isThread ? post.data.selftext : post.data.title}</p>
+                    <p>{isThread ? post.data.body : post.data.title}</p>
 
-                    {post.data.preview?.enabled && (
+                    {!isThread && post.data.preview?.enabled && (
                         <MediaThumbnail preview={post.data.preview} />
                     )}
                     <QuickActions actions={quickActions} />

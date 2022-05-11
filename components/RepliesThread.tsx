@@ -12,7 +12,9 @@ export default function RepliesThread({ data }: ThreadProps) {
         <Fragment>
             {data.children.map((post, i: number) => {
                 if (post.kind === "t1" && i == 0) {
-                    return <Post key={post.data.id} post={post} />;
+                    return (
+                        <Post key={post.data.id} post={post} />
+                    );
                 }
                 if (post.kind === "more") {
                     return (

@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
-import type { Preview } from "../types/reddit";
 
 type MediaThumbnailProps = {
-    preview: Preview;
+    preview: any;
 };
 
 export default function MediaThumbnail({ preview }: MediaThumbnailProps) {

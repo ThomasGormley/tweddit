@@ -60,7 +60,7 @@ export default function Reply({ comment }: { comment: Comment }) {
     return (
         <Fragment>
             <article
-                className="border-t border-dim-border px-[16px] text-sm ring ring-red-400"
+                className="border-t border-dim-border px-[16px] text-sm "
                 onClick={() => handleOnClick(router, comment.data.permalink)}
             >
                 <div className="flex h-full flex-row items-start pt-[12px]">

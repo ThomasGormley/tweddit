@@ -38,10 +38,13 @@ export default function Post({ post }: { post: Post }) {
             }).then((res) => res.json()),
     });
 
+    const hasReplies = isThread && Boolean(post.data.replies);
+    const numReplies = isThread && hasReplies ? post.data.replies.data.children.length : 0;
+
     const quickActions: PostQuickActions = [
         {
             type: "comments",
-            data: post.data.num_comments,
+            data: post.data.num_comments ?? numReplies,
         },
         {
             type: "crossposts",
@@ -75,7 +78,7 @@ export default function Post({ post }: { post: Post }) {
                     {!isLoading && (
                         <PostThumbnail src={subredditData?.data?.icon_img} />
                     )}
-                    {isThread && (
+                    {isThread && hasReplies && (
                         <div className="w-[2px] flex-grow justify-center bg-dim-reply-link"></div>
                     )}
                 </div>

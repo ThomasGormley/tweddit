@@ -25,12 +25,8 @@ export function Feed() {
 
     return (
         <div className="flex max-w-[600px] flex-col ">
-            {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-            {/* {isThread ? (
-                <Thread data={data} />
-            ) : ( */}
+            
             <PostsList data={data[0].data.children} />
-            {/* )} */}
         </div>
     );
 }

@@ -1,18 +1,12 @@
 import React from "react";
 import BasePage from "../../../base.page";
-import { Feed } from "../../../../components/Feed";
 import { getServerSideProps as baseGetServerSideProps } from "../../../base.page";
-import { useRouter } from "next/router";
-import useRedditQuery from "../../../../hooks/use-reddit-query";
-import { ThreadResult } from "../../../../types/ThreadsResult";
-import LoadingSpinner from "../../../../components/LoadingSpinner";
-import ThreadDisplay from "../../../../components/Thread";
+import ThreadView from "../../../../components/Thread";
 
 function CommentsSlug() {
     return (
         <BasePage>
-            <ThreadDisplay />
-            {/* <Feed /> */}
+            <ThreadView />
         </BasePage>
     );
 }

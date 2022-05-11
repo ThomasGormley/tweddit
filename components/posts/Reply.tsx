@@ -18,9 +18,8 @@ export const handleOnClick = (router: NextRouter, permalink: string) => {
 export default function Reply({ comment }: { comment: Comment }) {
     const { data: session } = useSession();
     const router = useRouter();
-    const { query } = router;
 
-    const isThread = query.slug?.includes("comments");
+    const hasReplies = Boolean(comment.data.replies);
 
     const { data: subredditData, isLoading } = useQuery({
         queryKey: `about-${comment.data.subreddit}`,
@@ -39,11 +38,12 @@ export default function Reply({ comment }: { comment: Comment }) {
     const quickActions: PostQuickActions = [
         {
             type: "comments",
-            data: comment.data.num_comments,
+            // data: comment.data.replies.data?.children.filter(r => r.kind = "t1").length,
+            data: hasReplies ? comment.data.replies.data.children.length : 0,
         },
         {
             type: "crossposts",
-            data: comment.data.num_reports ?? undefined,
+            data: comment.data.num_reports ?? 0,
         },
         {
             type: "upvotes",
@@ -70,7 +70,9 @@ export default function Reply({ comment }: { comment: Comment }) {
                                 src={subredditData?.data?.icon_img}
                             />
                         )}
-                        <div className="w-[2px] flex-grow justify-center bg-dim-reply-link"></div>
+                        {hasReplies && (
+                            <div className="w-[2px] flex-grow justify-center bg-dim-reply-link"></div>
+                        )}
                     </div>
                     <div className="w-full">
                         <div className="flex items-center space-x-[4px]">
@@ -98,9 +100,7 @@ export default function Reply({ comment }: { comment: Comment }) {
                 </div>
             </article>
 
-            {comment.data?.replies?.data && (
-                <RepliesThread data={comment.data.replies.data} />
-            )}
+            {hasReplies && <RepliesThread data={comment.data.replies.data} />}
         </Fragment>
     );
 }

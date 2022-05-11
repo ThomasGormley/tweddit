@@ -1,6 +1,6 @@
 
 export interface CommentsResult {
-  kind: string
+  kind: "t1" | "more"
   data: CommentsData
 }
 
@@ -13,7 +13,7 @@ export interface CommentsData {
 }
 
 export interface Comment {
-  kind: string
+  kind: "t1" | "more"
   data: ChildData
 }
 

@@ -1,10 +1,9 @@
 import React, { Fragment, useState } from "react";
-import { RedditPostData, RedditResponseData } from "../types/reddit";
-import DisplayPost from "./posts/DisplayPost";
+import { CommentsData } from "../types/CommentsResult";
 import RepliesThread from "./RepliesThread";
 
 type ShowReplies = {
-    data: RedditResponseData;
+    data: CommentsData;
 };
 
 export function ShowReplies({ data }: ShowReplies) {

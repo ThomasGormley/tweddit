@@ -10,7 +10,7 @@ export function Navigation() {
                 <div className="flex flex-col items-center space-y-[6px]">
                     <div className="">
                         <h1 role="heading">
-                            <a href="/home" aria-label="Tweddit" role="link">
+                            <a href="/" aria-label="Tweddit" role="link">
                                 LOGO
                             </a>
                         </h1>

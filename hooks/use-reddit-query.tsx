@@ -25,7 +25,7 @@ function useRedditQuery<ApiReturnType = ThreadResult>({
     console.log(asPath);
     const buildPath = isThread
         ? asPath
-        : `${asPath}${sortBy}/.json?html_decode=1`;
+        : `${asPath}/.json?html_decode=1`;
 
     console.log("buildPath", buildPath);
 
@@ -43,11 +43,11 @@ function useRedditQuery<ApiReturnType = ThreadResult>({
 
             const json = await res.json();
 
+            console.log("json", json);
             if (json instanceof Array) {
                 return json;
             }
 
-            console.log("json", json);
             return [json];
         },
     });

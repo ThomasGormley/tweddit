@@ -11,7 +11,7 @@ type ThreadProps = {
     data: Array<ThreadResult>;
 };
 
-export default function ThreadDisplay() {
+export default function ThreadView() {
     const router = useRouter();
 
     const { data, isLoading } = useRedditQuery<CommentsResult>({
@@ -32,7 +32,7 @@ export default function ThreadDisplay() {
         (comment) => comment.kind === "t1",
     );
     return (
-        <div className="flex max-w-[600px] flex-col ">
+        <div className="flex max-w-[600px] flex-col border-x border-dim-border">
             {/* Head node - start of thread */}
             <HeadPost post={headPostData.data.children[0]} />
             {/* All the reply nodes */}

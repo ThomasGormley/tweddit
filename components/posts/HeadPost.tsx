@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
 import { useQuery } from "react-query";
+import { numberFormatter } from "../../lib/util/numberFormatter";
 import { Comment } from "../../types/CommentsResult";
 import type { PostQuickActions } from "../../types/post";
 import { Thread } from "../../types/ThreadsResult";
@@ -79,6 +80,28 @@ export default function HeadPost({ post }: PostProps) {
                         year: "numeric",
                     })}
                 </span>
+            </div>
+            <div className="mb-4 space-x-1 border-y border-dim-border py-[16px] text-15px text-dim-grey">
+                <div className="space-x-[10px]">
+                    <span>
+                        <span className="font-bold leading-[20px] text-off-white">
+                            {`${numberFormatter(post.data.ups)} `}
+                        </span>
+                        Upvotes
+                    </span>
+                    <span>
+                        <span className="font-bold leading-[20px] text-off-white">
+                            {`${numberFormatter(post.data.num_comments)} `}
+                        </span>
+                        Replies
+                    </span>
+                    <span>
+                        <span className="font-bold leading-[20px] text-off-white">
+                            {`${numberFormatter(post.data.num_crossposts)} `}
+                        </span>
+                        Crossposts
+                    </span>
+                </div>
             </div>
         </article>
     );

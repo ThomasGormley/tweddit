@@ -28,6 +28,16 @@ export default function RepliesThread({ data }: ThreadProps) {
                             </Fragment>
                         );
                     }
+
+                    // TODO: if kind is more -> GET request on the ID to fetch replies
+                    // if data.children[0].data.children is a string need to do fetch, possibly handle in ShowReplies component
+                    // if (post.kind === "more") {
+                    //     return (
+                    //         <ShowReplies
+                    //             data={data.children[0].data.replies?.data}
+                    //         />
+                    //     );
+                    // }
                 })}
         </Fragment>
     );

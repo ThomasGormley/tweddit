@@ -99,7 +99,6 @@ export default function Reply({ comment }: { comment: Comment }) {
                     </div>
                 </div>
             </article>
-
             {hasReplies && <RepliesThread data={comment.data.replies.data} />}
         </Fragment>
     );

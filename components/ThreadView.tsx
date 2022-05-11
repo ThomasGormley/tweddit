@@ -35,6 +35,7 @@ export default function ThreadView() {
         <div className="flex max-w-[600px] flex-col border-x border-dim-border">
             {/* Head node - start of thread */}
             <HeadPost post={headPostData.data.children[0]} />
+            
             {/* All the reply nodes */}
             <Replies comments={replyComments} />
         </div>

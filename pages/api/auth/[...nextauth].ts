@@ -41,12 +41,6 @@ export default NextAuth({
     ],
     callbacks: {
         async jwt({ token, account, user }: any) {
-            console.log("token", token);
-            console.log("==========");
-            console.log("account", account);
-            console.log("==========");
-            console.log("user", user);
-            console.log("==========");
             if (account || (account && user)) {
                 switch (account.provider) {
                     case "reddit":

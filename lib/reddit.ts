@@ -26,8 +26,6 @@ export async function getPublicAccessToken() {
 
         const publicToken = await response.json();
 
-        console.log("publicToken", publicToken);
-
         if (!response.ok) {
             throw publicToken;
         }
@@ -36,8 +34,6 @@ export async function getPublicAccessToken() {
             ...publicToken,
             accessToken: publicToken.access_token,
         };
-
-        return publicToken;
     } catch (error) {
         console.log(error);
 
@@ -87,7 +83,6 @@ export async function refreshAccessToken(token: JWT) {
         if (!response.ok) {
             throw refreshedTokens;
         }
-        console.log(refreshedTokens);
         return {
             ...token,
             accessToken: refreshedTokens.access_token,
@@ -108,6 +103,5 @@ export async function refreshToken(token: JWT) {
     if (isRefreshable) {
         return await refreshAccessToken(token);
     }
-    console.log('isRefreshable', isRefreshable)
     return await getPublicAccessToken();
 }

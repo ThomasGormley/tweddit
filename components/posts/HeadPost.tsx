@@ -3,8 +3,6 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useQuery } from "react-query";
 import { numberFormatter } from "../../lib/util/numberFormatter";
-import { Comment } from "../../types/CommentsResult";
-import type { PostQuickActions } from "../../types/post";
 import { Thread } from "../../types/ThreadsResult";
 import MediaThumbnail from "../MediaThumbnail";
 import { handleOnClick } from "./Post";
@@ -17,7 +15,6 @@ type PostProps = {
 export default function HeadPost({ post }: PostProps) {
     const { data: session } = useSession();
     const router = useRouter();
-    const { query } = router;
 
     const postedAt = new Date(post.data.created * 1000);
 

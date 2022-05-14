@@ -5,9 +5,7 @@ import { useQuery } from "react-query";
 import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowShortSuffix";
 import { useSession } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
-import clsx from "clsx";
-import type { PostProps, PostQuickActions } from "../../types/post";
-import { Thread, ThreadResult } from "../../types/ThreadsResult";
+import type { PostQuickActions } from "../../types/post";
 import { Comment } from "../../types/CommentsResult";
 import RepliesThread from "../RepliesThread";
 

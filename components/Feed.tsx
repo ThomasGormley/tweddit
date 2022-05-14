@@ -23,7 +23,6 @@ export function Feed() {
 
     return (
         <div className="flex max-w-[600px] flex-col ">
-            
             <PostsList data={data[0].data.children} />
         </div>
     );

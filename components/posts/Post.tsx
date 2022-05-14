@@ -6,9 +6,9 @@ import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowSh
 import { useSession } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
 import clsx from "clsx";
-import type { PostProps, PostQuickActions } from "../../types/post";
+import type { PostQuickActions } from "../../types/post";
 import MediaThumbnail from "../MediaThumbnail";
-import { ChildData, Thread } from "../../types/ThreadsResult";
+import { Thread } from "../../types/ThreadsResult";
 import { Comment } from "../../types/CommentsResult";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {

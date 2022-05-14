@@ -1,15 +1,12 @@
-import React, { Fragment } from "react";
-import { Thread, ThreadResult } from "../types/ThreadsResult";
+import React from "react";
+import { ThreadResult } from "../types/ThreadsResult";
 import Replies from "./posts/Replies";
 import HeadPost from "./posts/HeadPost";
 import { useRouter } from "next/router";
 import useRedditQuery from "../hooks/use-reddit-query";
 import LoadingSpinner from "./LoadingSpinner";
-import { Comment, CommentsResult } from "../types/CommentsResult";
+import { CommentsResult } from "../types/CommentsResult";
 
-type ThreadProps = {
-    data: Array<ThreadResult>;
-};
 
 export default function ThreadView() {
     const router = useRouter();
@@ -26,6 +23,7 @@ export default function ThreadView() {
         );
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const [headPostData, commentsData]: [ThreadResult, CommentsResult] = data;
     const replyComments = commentsData.data.children.filter(

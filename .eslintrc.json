@@ -29,7 +29,6 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": ["plugin:@next/next/recommended", "@typescript-eslint"],
     "rules": {
         "indent": 0,
         "linebreak-style": ["error", "windows"],

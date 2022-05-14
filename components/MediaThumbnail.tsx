@@ -7,7 +7,7 @@ type MediaThumbnailProps = {
 export default function MediaThumbnail({ preview }: MediaThumbnailProps) {
     return (
         <Fragment>
-            {preview.images.map((img, i) => {
+            {preview.images.map((img: unknown, i: number) => {
                 return (
                     <img
                         key={i}

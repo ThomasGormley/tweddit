@@ -2,12 +2,10 @@ import { useRouter } from "next/router";
 import useRedditQuery from "../hooks/use-reddit-query";
 import { ThreadResult } from "../types/ThreadsResult";
 import LoadingSpinner from "./LoadingSpinner";
-import Post from "./posts/Post";
 import PostsList from "./posts/PostsList";
 
 export function Feed() {
     const router = useRouter();
-    const { query } = router;
 
     // const isThread = query.slug?.includes("comments");
 

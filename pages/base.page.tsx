@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { Session } from "next-auth";
 import { getSession, signIn, useSession } from "next-auth/react";
-import React, { PropsWithChildren, ReactNode, useEffect } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 import MobileNavigation from "../components/MobileNavigation";
 import { Navigation } from "../components/Navigation";
 
@@ -10,7 +10,7 @@ type BasePageProps = PropsWithChildren<{
 }>;
 
 export default function BasePage({ children }: BasePageProps) {
-    const { status, data: session } = useSession();
+    const { status } = useSession();
 
     useEffect(() => {
         if (status === "unauthenticated") {
@@ -19,7 +19,7 @@ export default function BasePage({ children }: BasePageProps) {
     }, [status]);
 
     return (
-        <div className="mx-auto flex h-full min-h-screen  bg-dim text-white">
+        <div className=" flex h-full min-h-screen  bg-dim text-white">
             <Navigation />
             <MobileNavigation />
             {/* <pre className="absolute top-0 bg-black z-10">{JSON.stringify(session, null, 2)}</pre> */}

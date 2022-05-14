@@ -13,7 +13,6 @@ export async function getPublicAccessToken() {
             `${process.env.REDDIT_CLIENT_ID}:${process.env.REDDIT_CLIENT_SECRET}`,
         ).toString("base64");
 
-        console.log("b64String", b64String);
 
         const response = await fetch(url, {
             headers: {

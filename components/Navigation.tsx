@@ -217,8 +217,8 @@ export function Navigation() {
         >
             <div className="flex h-full w-[88px] flex-col px-[12px] xl:w-[275px] ">
                 <div className="fixed flex h-full flex-col items-center justify-between p-[12px]">
-                    <div className="flex flex-col items-center space-y-[6px] xl:items-start">
-                        <h1 role="heading" className="min-w-[32px]">
+                    <div className="flex flex-col items-center xl:items-start">
+                        <h1 role="heading" className="min-w-[32px] py-[2px]">
                             <Link href="/" aria-label="Tweddit" passHref>
                                 <svg
                                     viewBox="0 0 24 24"
@@ -232,7 +232,7 @@ export function Navigation() {
                                 </svg>
                             </Link>
                         </h1>
-                        <div className="flex flex-col items-center xl:items-start ">
+                        <div className="flex flex-col mt-[2px] mb-[4px] items-center xl:items-start ">
                             <nav
                                 aria-label="Primary"
                                 role="navigation"
@@ -246,9 +246,9 @@ export function Navigation() {
                                     >
                                         <a
                                             href={item.url}
-                                            className="flex w-full items-center p-[12px] xl:space-x-4 xl:pl-[0px] xl:text-20px xl:font-medium"
+                                            className="flex w-full items-center py-[4px] xl:space-x-4 xl:pl-[0px] xl:text-20px xl:font-medium"
                                         >
-                                            <span>
+                                            <span className="p-[12px]">
                                                 {asPath === item.url
                                                     ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                                       //@ts-ignore
@@ -271,6 +271,20 @@ export function Navigation() {
                                     </Link>
                                 ))}
                             </nav>
+                        </div>
+                        <div className="my-[16px]">
+                            <button className="min-h-[52px]  w-[90%] min-w-[52px] rounded-full bg-primary flex justify-center items-center">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    className="h-[24px] w-[24px] text-white"
+                                >
+                                    <g>
+                                        <path d="M8.8 7.2H5.6V3.9c0-.4-.3-.8-.8-.8s-.7.4-.7.8v3.3H.8c-.4 0-.8.3-.8.8s.3.8.8.8h3.3v3.3c0 .4.3.8.8.8s.8-.3.8-.8V8.7H9c.4 0 .8-.3.8-.8s-.5-.7-1-.7zm15-4.9v-.1h-.1c-.1 0-9.2 1.2-14.4 11.7-3.8 7.6-3.6 9.9-3.3 9.9.3.1 3.4-6.5 6.7-9.2 5.2-1.1 6.6-3.6 6.6-3.6s-1.5.2-2.1.2c-.8 0-1.4-.2-1.7-.3 1.3-1.2 2.4-1.5 3.5-1.7.9-.2 1.8-.4 3-1.2 2.2-1.6 1.9-5.5 1.8-5.7z"></path>
+                                    </g>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                     <div className="mx-0 mb-[4px] w-full ">

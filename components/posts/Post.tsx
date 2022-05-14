@@ -26,7 +26,6 @@ export default function Post({ post }: { post: Post }) {
     };
 
     const isThread = isThreadPredicate(post);
-    console.log("isThread", isThreadPredicate(post));
     const { data: subredditData, isLoading } = useQuery({
         queryKey: `about-${post.data.subreddit}`,
         queryFn: async () =>

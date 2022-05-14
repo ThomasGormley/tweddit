@@ -1,6 +1,6 @@
 export default function SearchBar() {
     return (
-        <div className="fixed flex w-[inherit] flex-col">
+        <section className="fixed flex w-[inherit] flex-col">
             <div className="">
                 <form
                     aria-label="Search Tweddit"
@@ -26,6 +26,6 @@ export default function SearchBar() {
                     ></input>
                 </form>
             </div>
-        </div>
+        </section>
     );
 }

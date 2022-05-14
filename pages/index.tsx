@@ -1,6 +1,6 @@
 import Banner from "../components/Banner";
 import { Feed } from "../components/Feed";
-import SearchBar from "../components/SearchBar";
+import RightColumn from "../components/RightColumn";
 import BasePage, {
     getServerSideProps as baseGetServerSideProps,
 } from "./base.page";
@@ -14,11 +14,7 @@ function Index() {
                         <Banner />
                         <Feed />
                     </div>
-
-                    {/* Search column */}
-                    <div className="mr-[10px] hidden pt-[6px] md:flex md:w-[290px] lg:w-[350px]">
-                        <SearchBar />
-                    </div>
+                    <RightColumn />
                 </div>
             </main>
         </BasePage>

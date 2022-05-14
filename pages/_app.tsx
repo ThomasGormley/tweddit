@@ -12,10 +12,7 @@ const queryClient = new QueryClient({
     },
 });
 
-function MyApp({
-    Component,
-    pageProps: { session, publicToken, ...pageProps },
-}: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     return (
         <QueryClientProvider client={queryClient}>
             <SessionProvider session={session}>

@@ -3,7 +3,6 @@ import { Comment } from "../../types/CommentsResult";
 import Reply from "./Reply";
 
 export default function Replies({ comments }: { comments: Comment[] }) {
-    console.log({ comments });
     return (
         <Fragment>
             {comments.map((comment) => {

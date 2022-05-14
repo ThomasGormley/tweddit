@@ -7,7 +7,6 @@ type PostsProps = {
 };
 
 export default function PostsList({ data }: PostsProps) {
-    console.log("children", data);
     return (
         <Fragment>
             {data.map((post) => (

@@ -232,7 +232,7 @@ export function Navigation() {
                                 </svg>
                             </Link>
                         </h1>
-                        <div className="flex flex-col mt-[2px] mb-[4px] items-center xl:items-start ">
+                        <div className="mt-[2px] mb-[4px] flex flex-col items-center xl:items-start ">
                             <nav
                                 aria-label="Primary"
                                 role="navigation"
@@ -240,6 +240,7 @@ export function Navigation() {
                             >
                                 {primaryNavigationItems.map((item) => (
                                     <Link
+                                        key={item.label}
                                         href={item.url}
                                         aria-label={item.label}
                                         passHref
@@ -273,7 +274,7 @@ export function Navigation() {
                             </nav>
                         </div>
                         <div className="my-[16px]">
-                            <button className="min-h-[52px]  w-[90%] min-w-[52px] rounded-full bg-primary flex justify-center items-center">
+                            <button className="flex  min-h-[52px] w-[90%] min-w-[52px] items-center justify-center rounded-full bg-primary">
                                 <svg
                                     viewBox="0 0 24 24"
                                     aria-hidden="true"

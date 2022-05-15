@@ -2,35 +2,22 @@ import React from "react";
 import BasePage from "../../../base.page";
 import { getServerSideProps as baseGetServerSideProps } from "../../../base.page";
 import ThreadView from "../../../../components/ThreadView";
+import RightColumn from "../../../../components/RightColumn";
+import MainWrapper from "../../../../components/MainWrapper";
 
 function CommentsSlug() {
     return (
         <BasePage>
-            <ThreadView />
+            <MainWrapper>
+                <div className="flex max-w-[600px] flex-col border-dim-border font-display text-off-white sm:border">
+                    <ThreadView />
+                </div>
+                <RightColumn />
+            </MainWrapper>
         </BasePage>
     );
 }
 
 export default CommentsSlug;
-
-// const Subreddit: NextPage = () => {
-//     const { status, data: session } = useSession();
-
-//     useEffect(() => {
-//         if (status === "unauthenticated") {
-//             signIn("anon", { redirect: false });
-//         }
-//     }, [status]);
-
-//     return (
-//         <div className="mx-auto flex h-full min-h-screen  bg-dim text-white">
-//             <Navigation />
-//             {/* <pre className="absolute top-0 bg-black z-10">{JSON.stringify(session, null, 2)}</pre> */}
-//             <Main />
-//         </div>
-//     );
-// };
-
-// export default Subreddit;
 
 export const getServerSideProps = baseGetServerSideProps;

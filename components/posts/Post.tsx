@@ -64,7 +64,7 @@ export default function Post({ post }: { post: Post }) {
     return (
         <article
             className={clsx(
-                "border-y border-dim-border px-[16px] text-sm",
+                "border-y border-dim-border px-[16px]",
                 isThread && "border-none",
             )}
             onClick={() => handleOnClick(router, post.data.permalink)}

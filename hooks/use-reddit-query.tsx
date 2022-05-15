@@ -13,7 +13,7 @@ function useRedditQuery<ApiReturnType = ThreadResult>({
     router,
 }: UseRedditDataProps) {
     const { data: session } = useSession();
-    let { route, asPath, query } = router;
+    let { asPath, query } = router;
 
     const isThread = query.slug?.includes("comments");
 
@@ -21,11 +21,7 @@ function useRedditQuery<ApiReturnType = ThreadResult>({
         asPath = asPath + "/";
     }
 
-    const sortBy = "hot";
-    console.log(asPath);
-    const buildPath = isThread
-        ? asPath
-        : `${asPath}/.json?html_decode=1`;
+    const buildPath = isThread ? asPath : `${asPath}/.json?html_decode=1`;
 
     console.log("buildPath", buildPath);
 

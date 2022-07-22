@@ -32,8 +32,8 @@ export default function ThreadView() {
     return (
         <Fragment>
             <Banner>
-                <button
-                    type="button"
+                <div
+                    role="button"
                     onClick={() => router.back()}
                     className="flex h-full w-full items-center justify-start pl-[8px] pr-[16px] "
                 >
@@ -60,7 +60,7 @@ export default function ThreadView() {
                     <span className="text-17px font-semibold sm:text-20px">
                         Thread
                     </span>
-                </button>
+                </div>
             </Banner>
 
             {/* Head node - start of thread */}

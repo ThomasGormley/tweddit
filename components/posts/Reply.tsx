@@ -8,6 +8,7 @@ import { NextRouter, useRouter } from "next/router";
 import type { PostQuickActions } from "../../types/post";
 import { Comment } from "../../types/CommentsResult";
 import RepliesThread from "../RepliesThread";
+import useSnudownToReact from "../../hooks/use-snudown-to-react";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);
@@ -16,6 +17,11 @@ export const handleOnClick = (router: NextRouter, permalink: string) => {
 export default function Reply({ comment }: { comment: Comment }) {
     const { data: session } = useSession();
     const router = useRouter();
+    const { reactElement: commentBody, data } = useSnudownToReact(
+        comment.data.body,
+    );
+
+    // console.log(commentBody);
 
     const hasReplies = Boolean(comment.data.replies);
 
@@ -87,12 +93,13 @@ export default function Reply({ comment }: { comment: Comment }) {
                             <span className="text-15px text-dim-grey">·</span>
                             <time
                                 dateTime={postedAt.toISOString()}
-                                className="text-15px font-normal text-dim-grey"
+                                className="text-15px font-normal text-dim-grey underline"
                             >
                                 {postedAgo}
                             </time>
                         </div>
-                        <p>{comment.data.body}</p>
+                        {/* <p>{comment.data.body_html}</p> */}
+                        {commentBody}
                         <QuickActions actions={quickActions} />
                     </div>
                 </div>

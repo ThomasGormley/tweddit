@@ -31,10 +31,10 @@ export default function HeadPost({ post }: PostProps) {
 
     return (
         <article
-            className="px-[16px] text-sm"
+            className="px-[16px] text-sm "
             onClick={() => handleOnClick(router, post.data.permalink)}
         >
-            <div className="flex flex-row items-start py-[12px]">
+            <div className="flex flex-shrink flex-row items-start py-[12px]">
                 <div className="mr-[12px] flex-shrink-0">
                     {!isLoading && (
                         <PostThumbnail src={subredditData?.data?.icon_img} />
@@ -56,7 +56,7 @@ export default function HeadPost({ post }: PostProps) {
                 </div>
             </div>
             <div className="mb-4">
-                <p className="mb-4 text-23px">{post.data.title}</p>
+                <p className="mb-4 text-23px ">{post.data.title}</p>
                 {post.data.preview?.enabled && (
                     <MediaThumbnail preview={post.data.preview} />
                 )}

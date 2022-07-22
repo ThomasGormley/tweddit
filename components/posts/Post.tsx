@@ -64,12 +64,12 @@ export default function Post({ post }: { post: Post }) {
     return (
         <article
             className={clsx(
-                "border-y border-dim-border px-[16px]",
+                "border-t border-dim-border px-[16px]",
                 isThread && "border-none",
             )}
             onClick={() => handleOnClick(router, post.data.permalink)}
         >
-            <div className="relative flex h-full flex-row items-start break-all pt-[12px]">
+            <div className="relative flex h-full flex-row items-start pt-[12px]">
                 <div className="mr-[12px] flex h-full flex-shrink-0 flex-col items-center space-y-[4px]">
                     {isThread && (
                         <div className="absolute top-0 h-[10px] w-[2px] bg-dim-reply-link"></div>
@@ -101,7 +101,7 @@ export default function Post({ post }: { post: Post }) {
                             {postedAgo}
                         </time>
                     </div>
-
+                    
                     <p>{isThread ? post.data.body : post.data.title}</p>
 
                     {!isThread && post.data.preview?.enabled && (

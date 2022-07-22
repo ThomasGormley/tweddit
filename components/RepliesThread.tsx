@@ -16,8 +16,8 @@ export default function RepliesThread({ data }: ThreadProps) {
                     const hasReplies = Boolean(post.data.replies);
                     if (post.kind === "t1" && i == 0) {
                         return (
-                            <Fragment>
-                                <Post key={post.data.id} post={post} />
+                            <Fragment key={post.data.id}>
+                                <Post post={post} />
                                 {hasReplies && (
                                     <ShowReplies
                                         data={

@@ -1,15 +1,14 @@
 import PostThumbnail from "./PostThumbnail";
 import React from "react";
 import QuickActions from "../QuickActions";
-import { useQuery } from "react-query";
 import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowShortSuffix";
-import { useSession } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
 import clsx from "clsx";
 import type { PostQuickActions } from "../../types/post";
 import MediaThumbnail from "../MediaThumbnail";
 import { Thread } from "../../types/ThreadsResult";
 import { Comment } from "../../types/CommentsResult";
+import useSubredditData from "../../hooks/use-subreddit-data";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);
@@ -17,10 +16,7 @@ export const handleOnClick = (router: NextRouter, permalink: string) => {
 
 type Post = Comment | Thread;
 
-export const subredditDataQueryKey = "subreddit-data";
-
 export default function Post({ post }: { post: Post }) {
-    const { data: session } = useSession();
     const router = useRouter();
 
     const isThreadPredicate = (post: Post): post is Comment => {
@@ -29,16 +25,9 @@ export default function Post({ post }: { post: Post }) {
 
     const isThread = isThreadPredicate(post);
 
-    const { data: subredditData, isLoading } = useQuery({
-        queryKey: [subredditDataQueryKey, `about-${post.data.subreddit}`],
-        queryFn: async () =>
-            fetch(`https://oauth.reddit.com/r/${post.data.subreddit}/about`, {
-                method: "GET",
-                headers: {
-                    Authorization: `bearer ${session?.accessToken}`,
-                },
-            }).then((res) => res.json()),
-    });
+    const { data: subredditData, isLoading } = useSubredditData(
+        post.data.subreddit,
+    );
 
     const hasReplies = isThread && Boolean(post.data.replies);
     const numReplies =

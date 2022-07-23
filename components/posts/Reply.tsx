@@ -9,40 +9,25 @@ import type { PostQuickActions } from "../../types/post";
 import { Comment } from "../../types/CommentsResult";
 import RepliesThread from "../RepliesThread";
 import useSnudownToReact from "../../hooks/use-snudown-to-react";
+import useSubredditData from "../../hooks/use-subreddit-data";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);
 };
 
 export default function Reply({ comment }: { comment: Comment }) {
-    const { data: session } = useSession();
     const router = useRouter();
-    const { reactElement: commentBody, data } = useSnudownToReact(
-        comment.data.body,
-    );
-
-    // console.log(commentBody);
+    const { reactElement: commentBody } = useSnudownToReact(comment.data.body);
 
     const hasReplies = Boolean(comment.data.replies);
 
-    const { data: subredditData, isLoading } = useQuery({
-        queryKey: `about-${comment.data.subreddit}`,
-        queryFn: async () =>
-            fetch(
-                `https://oauth.reddit.com/r/${comment.data.subreddit}/about`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: `bearer ${session?.accessToken}`,
-                    },
-                },
-            ).then((res) => res.json()),
-    });
+    const { data: subredditData, isLoading } = useSubredditData(
+        comment.data.subreddit,
+    );
 
     const quickActions: PostQuickActions = [
         {
             type: "comments",
-            // data: comment.data.replies.data?.children.filter(r => r.kind = "t1").length,
             data: hasReplies ? comment.data.replies.data.children.length : 0,
         },
         {

@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
 import { useQuery } from "react-query";
+import useSubredditData from "../../hooks/use-subreddit-data";
 import { numberFormatter } from "../../lib/util/numberFormatter";
 import { Thread } from "../../types/ThreadsResult";
 import MediaThumbnail from "../MediaThumbnail";
@@ -13,21 +14,12 @@ type PostProps = {
 };
 
 export default function HeadPost({ post }: PostProps) {
-    const { data: session } = useSession();
     const router = useRouter();
-
     const postedAt = new Date(post.data.created * 1000);
 
-    const { data: subredditData, isLoading } = useQuery({
-        queryKey: `about-${post.data.subreddit}`,
-        queryFn: async () =>
-            fetch(`https://oauth.reddit.com/r/${post.data.subreddit}/about`, {
-                method: "GET",
-                headers: {
-                    Authorization: `bearer ${session?.accessToken}`,
-                },
-            }).then((res) => res.json()),
-    });
+    const { data: subredditData, isLoading } = useSubredditData(
+        post.data.subreddit,
+    );
 
     return (
         <article

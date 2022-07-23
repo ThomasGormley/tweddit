@@ -1,9 +1,7 @@
 import { signIn, signOut } from "next-auth/react";
-import { Suspense } from "react";
 import Banner from "../components/Banner";
 import { Feed } from "../components/Feed";
 import MainWrapper from "../components/MainWrapper";
-import RightColumn from "../components/RightColumn";
 import BasePage, {
     getServerSideProps as baseGetServerSideProps,
 } from "./base.page";

@@ -1,17 +1,23 @@
 import { useSession } from "next-auth/react";
 import Error from "next/error";
 import { NextRouter } from "next/router";
-import { useQuery } from "react-query";
-import { CommentsResult } from "../types/CommentsResult";
+import { QueryKey, useQuery, UseQueryOptions } from "react-query";
 import { ThreadResult } from "../types/ThreadsResult";
 
-type UseRedditDataProps = {
+interface UseRedditDataProps<T> {
     router: NextRouter;
-};
+    queryOptions?: UseQueryOptions<
+        T[],
+        Error<Record<string, unknown>>,
+        T[],
+        QueryKey
+    >;
+}
 
 function useRedditQuery<ApiReturnType = ThreadResult>({
     router,
-}: UseRedditDataProps) {
+    queryOptions,
+}: UseRedditDataProps<ApiReturnType>) {
     const { data: session } = useSession();
     let { asPath, query } = router;
 
@@ -22,8 +28,6 @@ function useRedditQuery<ApiReturnType = ThreadResult>({
     }
 
     const buildPath = isThread ? asPath : `${asPath}/.json?html_decode=1`;
-
-    console.log("buildPath", buildPath);
 
     return useQuery<Array<ApiReturnType>, Error>({
         queryKey: asPath,
@@ -39,13 +43,13 @@ function useRedditQuery<ApiReturnType = ThreadResult>({
 
             const json = await res.json();
 
-            console.log("json", json);
             if (json instanceof Array) {
                 return json;
             }
 
             return [json];
         },
+        ...queryOptions,
     });
 }
 

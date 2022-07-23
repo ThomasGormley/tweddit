@@ -1,4 +1,5 @@
 import { signIn, signOut } from "next-auth/react";
+import { Suspense } from "react";
 import Banner from "../components/Banner";
 import { Feed } from "../components/Feed";
 import MainWrapper from "../components/MainWrapper";
@@ -17,7 +18,7 @@ function Index() {
     return (
         <BasePage>
             <MainWrapper>
-                <div className="flex max-w-[600px] w-full flex-col border-dim-border font-display text-off-white sm:border">
+                <div className="flex w-full max-w-[600px] flex-col border-dim-border font-display text-off-white sm:border">
                     <Banner>
                         <div className="px-[16px]">
                             <span className="text-17px font-semibold sm:text-20px">
@@ -37,7 +38,7 @@ function Index() {
                             </svg>
                         </div>
                     </Banner>
-                    <div className="sm:flex w-full flex-row py-[4px] hidden px-[16px]">
+                    <div className="hidden w-full flex-row py-[4px] px-[16px] sm:flex">
                         <div className="mr-[12px] h-[48px] w-[48px] flex-shrink-0 basis-[48px] rounded-full bg-black pt-[4px]" />
 
                         <div className="w-full py-[12px]">
@@ -46,13 +47,13 @@ function Index() {
                                 placeholder="What's happening?"
                                 rows={1}
                                 wrap="hard"
-                                className="w-full resize-none overflow-auto border-none bg-transparent py-[2px] text-20px leading-[24px] outline-none overflow-y-hidden"
+                                className="w-full resize-none overflow-auto overflow-y-hidden border-none bg-transparent py-[2px] text-20px leading-[24px] outline-none"
                                 id="compose"
                             ></textarea>
 
                             <div className="ml-[-8px] border-b border-dim-border ">
                                 <div className="pb-[12px]">
-                                    <button className="font-bold min-w-[24px] min-h-[24px] px-[12px] rounded-full hover:bg-primary/10 transition duration-[0.2]">
+                                    <button className="min-h-[24px] min-w-[24px] rounded-full px-[12px] font-bold transition duration-[0.2] hover:bg-primary/10">
                                         <span className="break-words text-14px leading-[16px] text-primary">
                                             /r/AskReddit
                                         </span>

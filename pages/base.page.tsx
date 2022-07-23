@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { Session } from "next-auth";
 import { getSession, signIn, useSession } from "next-auth/react";
-import React, { PropsWithChildren, Suspense, useEffect } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 import MobileNavigation from "../components/MobileNavigation";
 import { Navigation } from "../components/Navigation";
 
@@ -30,10 +30,6 @@ export default function BasePage({ children }: BasePageProps) {
 export const getServerSideProps: GetServerSideProps<{
     session: Session | null;
 }> = async (context) => {
-    console.log("=================");
-    console.log("Base getServerSideProps");
-    console.log("=================");
-
     const session = await getSession(context);
     return {
         props: {

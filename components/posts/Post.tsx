@@ -17,6 +17,8 @@ export const handleOnClick = (router: NextRouter, permalink: string) => {
 
 type Post = Comment | Thread;
 
+export const subredditDataQueryKey = "subreddit-data";
+
 export default function Post({ post }: { post: Post }) {
     const { data: session } = useSession();
     const router = useRouter();
@@ -26,8 +28,9 @@ export default function Post({ post }: { post: Post }) {
     };
 
     const isThread = isThreadPredicate(post);
+
     const { data: subredditData, isLoading } = useQuery({
-        queryKey: `about-${post.data.subreddit}`,
+        queryKey: [subredditDataQueryKey, `about-${post.data.subreddit}`],
         queryFn: async () =>
             fetch(`https://oauth.reddit.com/r/${post.data.subreddit}/about`, {
                 method: "GET",
@@ -78,7 +81,7 @@ export default function Post({ post }: { post: Post }) {
                     {!isLoading ? (
                         <PostThumbnail src={subredditData?.data?.icon_img} />
                     ) : (
-                        <div className="h-[48px] w-[48px] rounded-full animate-pulse bg-slate-700" />
+                        <div className="h-[48px] w-[48px] rounded-full bg-slate-700" />
                     )}
                     {isThread && hasReplies && (
                         <div className="w-[2px] flex-grow justify-center bg-dim-reply-link"></div>

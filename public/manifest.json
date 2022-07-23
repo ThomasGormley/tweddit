@@ -4,8 +4,8 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Tweddit",
-    "short_name": "Tweddit",
+    "name": "tweddit",
+    "short_name": "tweddit",
     "icons": [
         {
             "src": "/icon-192x192.png",

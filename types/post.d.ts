@@ -1,10 +1,12 @@
+import type { CommentsResult, Comment, ChildData } from "./CommentsResult";
 import type { Children } from "./reddit";
+import { Thread } from "./ThreadsResult";
 
-export type PostProps = {
-    post: Children;
+export type PostProps<TPost = Comment> = {
+    post: TPost;
 };
 export type ReplyPostProps = {
-    thread: Children;
+    thread: ChildData;
 };
 
 export type DisplayPostProps = {

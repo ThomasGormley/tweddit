@@ -1,17 +1,16 @@
 import React, { Fragment } from "react";
-import { Children, RedditResponse } from "../../types/reddit";
-import DisplayPost from "./DisplayPost";
+import type { Thread } from "../../types/ThreadsResult";
+import Post from "./Post";
 
 type PostsProps = {
-    data: Children[];
+    data: Array<Thread>;
 };
 
-export default function PostsList({ data: children }: PostsProps) {
-    console.log("children", children);
+export default function PostsList({ data }: PostsProps) {
     return (
         <Fragment>
-            {children.map((post: Children) => (
-                <DisplayPost key={post.data.id} post={post} type="post" />
+            {data.map((post) => (
+                <Post key={post.data.id} post={post} />
             ))}
         </Fragment>
     );

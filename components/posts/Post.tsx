@@ -1,30 +1,36 @@
 import PostThumbnail from "./PostThumbnail";
-import React, { Fragment } from "react";
+import React from "react";
 import QuickActions from "../QuickActions";
 import { useQuery } from "react-query";
 import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowShortSuffix";
 import { useSession } from "next-auth/react";
-import { Children } from "../../types/reddit";
 import { NextRouter, useRouter } from "next/router";
 import clsx from "clsx";
-import { match } from "../../lib/util/match";
-import HeadPost from "./HeadPost";
-import type { PostProps, PostQuickActions } from "../../types/post";
+import type { PostQuickActions } from "../../types/post";
 import MediaThumbnail from "../MediaThumbnail";
+import { Thread } from "../../types/ThreadsResult";
+import { Comment } from "../../types/CommentsResult";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);
 };
 
-export default function Post({ post }: PostProps) {
+type Post = Comment | Thread;
+
+export const subredditDataQueryKey = "subreddit-data";
+
+export default function Post({ post }: { post: Post }) {
     const { data: session } = useSession();
     const router = useRouter();
-    const { query } = router;
 
-    const isThread = query.slug?.includes("comments");
+    const isThreadPredicate = (post: Post): post is Comment => {
+        return "body" in post.data;
+    };
+
+    const isThread = isThreadPredicate(post);
 
     const { data: subredditData, isLoading } = useQuery({
-        queryKey: `about-${post.data.subreddit}`,
+        queryKey: [subredditDataQueryKey, `about-${post.data.subreddit}`],
         queryFn: async () =>
             fetch(`https://oauth.reddit.com/r/${post.data.subreddit}/about`, {
                 method: "GET",
@@ -34,14 +40,18 @@ export default function Post({ post }: PostProps) {
             }).then((res) => res.json()),
     });
 
+    const hasReplies = isThread && Boolean(post.data.replies);
+    const numReplies =
+        isThread && hasReplies ? post.data.replies.data.children.length : 0;
+
     const quickActions: PostQuickActions = [
         {
             type: "comments",
-            data: post.data.num_comments,
+            data: post.data.num_comments ?? numReplies,
         },
         {
             type: "crossposts",
-            data: post.data.num_crossposts,
+            data: 0,
         },
         {
             type: "upvotes",
@@ -58,24 +68,22 @@ export default function Post({ post }: PostProps) {
     return (
         <article
             className={clsx(
-                "border-y border-dim-border px-[16px] text-sm",
+                "border-b border-dim-border px-[16px]",
                 isThread && "border-none",
             )}
             onClick={() => handleOnClick(router, post.data.permalink)}
         >
-            <div
-                className={clsx(
-                    `relative flex h-full flex-row items-start pt-[12px]`,
-                )}
-            >
+            <div className="relative flex h-full flex-row items-start pt-[12px]">
                 <div className="mr-[12px] flex h-full flex-shrink-0 flex-col items-center space-y-[4px]">
                     {isThread && (
                         <div className="absolute top-0 h-[10px] w-[2px] bg-dim-reply-link"></div>
                     )}
-                    {!isLoading && (
+                    {!isLoading ? (
                         <PostThumbnail src={subredditData?.data?.icon_img} />
+                    ) : (
+                        <div className="h-[48px] w-[48px] rounded-full bg-slate-700" />
                     )}
-                    {isThread && (
+                    {isThread && hasReplies && (
                         <div className="w-[2px] flex-grow justify-center bg-dim-reply-link"></div>
                     )}
                 </div>
@@ -102,7 +110,7 @@ export default function Post({ post }: PostProps) {
 
                     <p>{isThread ? post.data.body : post.data.title}</p>
 
-                    {post.data.preview?.enabled && (
+                    {!isThread && post.data.preview?.enabled && (
                         <MediaThumbnail preview={post.data.preview} />
                     )}
                     <QuickActions actions={quickActions} />

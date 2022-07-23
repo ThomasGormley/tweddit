@@ -2,15 +2,19 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
 import { useQuery } from "react-query";
-import type { PostProps, PostQuickActions } from "../../types/post";
+import { numberFormatter } from "../../lib/util/numberFormatter";
+import { Thread } from "../../types/ThreadsResult";
 import MediaThumbnail from "../MediaThumbnail";
 import { handleOnClick } from "./Post";
 import PostThumbnail from "./PostThumbnail";
 
+type PostProps = {
+    post: Thread;
+};
+
 export default function HeadPost({ post }: PostProps) {
     const { data: session } = useSession();
     const router = useRouter();
-    const { query } = router;
 
     const postedAt = new Date(post.data.created * 1000);
 
@@ -25,30 +29,12 @@ export default function HeadPost({ post }: PostProps) {
             }).then((res) => res.json()),
     });
 
-    const quickActions: PostQuickActions = [
-        {
-            type: "comments",
-            data: post.data.num_comments,
-        },
-        {
-            type: "crossposts",
-            data: post.data.num_crossposts,
-        },
-        {
-            type: "upvotes",
-            data: post.data.ups,
-        },
-        {
-            type: "share",
-        },
-    ];
-
     return (
         <article
-            className="px-[16px] text-sm"
+            className="px-[16px] text-sm "
             onClick={() => handleOnClick(router, post.data.permalink)}
         >
-            <div className="flex flex-row items-start py-[12px]">
+            <div className="flex flex-shrink flex-row items-start py-[12px]">
                 <div className="mr-[12px] flex-shrink-0">
                     {!isLoading && (
                         <PostThumbnail src={subredditData?.data?.icon_img} />
@@ -70,7 +56,7 @@ export default function HeadPost({ post }: PostProps) {
                 </div>
             </div>
             <div className="mb-4">
-                <p className="mb-4 text-23px">{post.data.title}</p>
+                <p className="mb-4 text-23px ">{post.data.title}</p>
                 {post.data.preview?.enabled && (
                     <MediaThumbnail preview={post.data.preview} />
                 )}
@@ -91,6 +77,28 @@ export default function HeadPost({ post }: PostProps) {
                         year: "numeric",
                     })}
                 </span>
+            </div>
+            <div className="mb-4 space-x-1 border-y border-dim-border py-[16px] text-15px text-dim-grey">
+                <div className="space-x-[10px]">
+                    <span>
+                        <span className="font-bold leading-[20px] text-off-white">
+                            {`${numberFormatter(post.data.ups)} `}
+                        </span>
+                        Upvotes
+                    </span>
+                    <span>
+                        <span className="font-bold leading-[20px] text-off-white">
+                            {`${numberFormatter(post.data.num_comments)} `}
+                        </span>
+                        Replies
+                    </span>
+                    <span>
+                        <span className="font-bold leading-[20px] text-off-white">
+                            {`${numberFormatter(post.data.num_crossposts)} `}
+                        </span>
+                        Crossposts
+                    </span>
+                </div>
             </div>
         </article>
     );

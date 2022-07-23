@@ -29,10 +29,9 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": ["plugin:@next/next/recommended", "@typescript-eslint"],
     "rules": {
         "indent": 0,
-        "linebreak-style": ["error", "windows"],
+        "linebreak-style": 0,
         "arrow-body-style": 0,
         "import/no-unresolved": 0,
         "react/react-in-jsx-scope": 0,

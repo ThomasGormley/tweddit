@@ -17,7 +17,7 @@ function Index() {
     return (
         <BasePage>
             <MainWrapper>
-                <div className="flex max-w-[600px] flex-col border-dim-border font-display text-off-white sm:border">
+                <div className="flex max-w-[600px] w-full flex-col border-dim-border font-display text-off-white sm:border">
                     <Banner>
                         <div className="px-[16px]">
                             <span className="text-17px font-semibold sm:text-20px">
@@ -37,7 +37,7 @@ function Index() {
                             </svg>
                         </div>
                     </Banner>
-                    <div className="flex w-full flex-row py-[4px] px-[16px]">
+                    <div className="sm:flex w-full flex-row py-[4px] hidden px-[16px]">
                         <div className="mr-[12px] h-[48px] w-[48px] flex-shrink-0 basis-[48px] rounded-full bg-black pt-[4px]" />
 
                         <div className="w-full py-[12px]">

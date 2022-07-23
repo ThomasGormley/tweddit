@@ -38,7 +38,8 @@ export default function Post({ post }: { post: Post }) {
     });
 
     const hasReplies = isThread && Boolean(post.data.replies);
-    const numReplies = isThread && hasReplies ? post.data.replies.data.children.length : 0;
+    const numReplies =
+        isThread && hasReplies ? post.data.replies.data.children.length : 0;
 
     const quickActions: PostQuickActions = [
         {
@@ -74,8 +75,10 @@ export default function Post({ post }: { post: Post }) {
                     {isThread && (
                         <div className="absolute top-0 h-[10px] w-[2px] bg-dim-reply-link"></div>
                     )}
-                    {!isLoading && (
+                    {!isLoading ? (
                         <PostThumbnail src={subredditData?.data?.icon_img} />
+                    ) : (
+                        <div className="h-[48px] w-[48px] rounded-full animate-pulse bg-slate-700" />
                     )}
                     {isThread && hasReplies && (
                         <div className="w-[2px] flex-grow justify-center bg-dim-reply-link"></div>
@@ -101,7 +104,7 @@ export default function Post({ post }: { post: Post }) {
                             {postedAgo}
                         </time>
                     </div>
-                    
+
                     <p>{isThread ? post.data.body : post.data.title}</p>
 
                     {!isThread && post.data.preview?.enabled && (

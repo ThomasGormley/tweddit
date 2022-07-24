@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Preview } from "../types/ThreadsResult";
+import { Preview } from "../types/reddit-api/Comment";
 
 type MediaThumbnailProps = {
     preview: Preview;

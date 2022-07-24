@@ -1,12 +1,12 @@
 import PostThumbnail from "./PostThumbnail";
 import React, { Fragment } from "react";
-import QuickActions from "../QuickActions";
+import QuickActions, { isThreadPredicate } from "../QuickActions";
 import { useQuery } from "react-query";
 import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowShortSuffix";
 import { useSession } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
 import type { PostQuickActions } from "../../types/post";
-import { Comment } from "../../types/CommentsResult";
+import { Comment } from "../../types/reddit-api/Link";
 import RepliesThread from "../RepliesThread";
 import useSnudownToReact from "../../hooks/use-snudown-to-react";
 import useSubredditData from "../../hooks/use-subreddit-data";
@@ -24,24 +24,26 @@ export default function Reply({ comment }: { comment: Comment }) {
     const { data: subredditData, isLoading } = useSubredditData(
         comment.data.subreddit,
     );
+    const isThread = isThreadPredicate(comment);
+    // console.log({ fromReplyAsTypeComment: comment, isThread });
 
-    const quickActions: PostQuickActions = [
-        {
-            type: "comments",
-            data: hasReplies ? comment.data.replies.data.children.length : 0,
-        },
-        {
-            type: "crossposts",
-            data: comment.data.num_reports ?? 0,
-        },
-        {
-            type: "upvotes",
-            data: comment.data.ups,
-        },
-        {
-            type: "share",
-        },
-    ];
+    // const quickActions: PostQuickActions = [
+    //     {
+    //         type: "comments",
+    //         data: hasReplies ? comment.data.replies.data.children.length : 0,
+    //     },
+    //     {
+    //         type: "crossposts",
+    //         data: comment.data.num_crossposts ?? 0,
+    //     },
+    //     {
+    //         type: "upvotes",
+    //         data: comment.data.ups,
+    //     },
+    //     {
+    //         type: "share",
+    //     },
+    // ];
 
     const postedAt = new Date(comment.data.created * 1000);
     const postedAgo = formatTimeDistanceToNowShortSuffix(postedAt);
@@ -85,7 +87,7 @@ export default function Reply({ comment }: { comment: Comment }) {
                         </div>
                         {/* <p>{comment.data.body_html}</p> */}
                         {commentBody}
-                        <QuickActions actions={quickActions} />
+                        <QuickActions post={comment} />
                     </div>
                 </div>
             </article>

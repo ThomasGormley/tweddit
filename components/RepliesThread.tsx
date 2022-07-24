@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
-import { CommentsData } from "../types/CommentsResult";
+import { CommentData } from "../types/reddit-api/Comment";
 import Post from "./posts/Post";
 import { ShowReplies } from "./ShowReplies";
 
 type ThreadProps = {
-    data: CommentsData;
+    data: CommentData;
 };
 
 export default function RepliesThread({ data }: ThreadProps) {

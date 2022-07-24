@@ -1,17 +1,17 @@
 import React, { Fragment } from "react";
-import { ThreadResult } from "../types/ThreadsResult";
+import { Comment } from "../types/reddit-api/Comment";
 import Replies from "./posts/Replies";
 import HeadPost from "./posts/HeadPost";
 import { useRouter } from "next/router";
 import useRedditQuery from "../hooks/use-reddit-query";
 import LoadingSpinner from "./LoadingSpinner";
-import { CommentsResult } from "../types/CommentsResult";
+import { Link } from "../types/reddit-api/Link";
 import Banner from "./Banner";
 
 export default function ThreadView() {
     const router = useRouter();
 
-    const { data, isLoading } = useRedditQuery<CommentsResult>({
+    const { data, isLoading } = useRedditQuery<Link>({
         router,
     });
 
@@ -23,9 +23,11 @@ export default function ThreadView() {
         );
     }
 
+    console.log({ ThreadViewQueryData: data });
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const [headPostData, commentsData]: [ThreadResult, CommentsResult] = data;
+    const [headPostData, commentsData]: [Comment, Link] = data;
     const replyComments = commentsData.data.children.filter(
         (comment) => comment.kind === "t1",
     );

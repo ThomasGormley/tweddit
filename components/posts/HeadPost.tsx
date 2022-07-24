@@ -1,16 +1,15 @@
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
-import { useQuery } from "react-query";
 import useSubredditData from "../../hooks/use-subreddit-data";
 import { numberFormatter } from "../../lib/util/numberFormatter";
-import { Thread } from "../../types/ThreadsResult";
+import { Comment } from "../../types/reddit-api/Link";
+import { CommentDataChildren } from "../../types/reddit-api/Comment";
 import MediaThumbnail from "../MediaThumbnail";
 import { handleOnClick } from "./Post";
 import PostThumbnail from "./PostThumbnail";
 
 type PostProps = {
-    post: Thread;
+    post: Comment;
 };
 
 export default function HeadPost({ post }: PostProps) {
@@ -20,6 +19,8 @@ export default function HeadPost({ post }: PostProps) {
     const { data: subredditData, isLoading } = useSubredditData(
         post.data.subreddit,
     );
+
+    console.log({ headPost: post });
 
     return (
         <article

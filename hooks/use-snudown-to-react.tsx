@@ -17,7 +17,6 @@ const preprocessingInstructions = [
             return node.parent.name === "a";
         },
         preprocessNode: function (node: any) {
-            console.log({ node });
 
             node.parent.attribs = {
                 style: "text-decoration-line: underline;",

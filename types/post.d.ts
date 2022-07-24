@@ -1,12 +1,12 @@
-import type { CommentsResult, Comment, ChildData } from "./CommentsResult";
+import type { Link, Comment, LinkData } from "./reddit-api/Link";
 import type { Children } from "./reddit";
-import { Thread } from "./ThreadsResult";
+import { CommentDataChildren } from "./reddit-api/Comment";
 
 export type PostProps<TPost = Comment> = {
     post: TPost;
 };
 export type ReplyPostProps = {
-    thread: ChildData;
+    thread: LinkData;
 };
 
 export type DisplayPostProps = {

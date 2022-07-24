@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
-import { Comment } from "../../types/CommentsResult";
+import { Link } from "../../types/reddit-api/Link";
 import Reply from "./Reply";
 
-export default function Replies({ comments }: { comments: Comment[] }) {
+export default function Replies({ comments }: { comments: Link[] }) {
     return (
         <Fragment>
             {comments.map((comment) => {

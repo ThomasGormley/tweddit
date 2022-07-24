@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
-import type { Thread } from "../../types/ThreadsResult";
+import { Link } from "../../types/reddit-api/Link";
 import Post from "./Post";
 
 type PostsProps = {
-    data: Array<Thread>;
+    data: Array<Link>;
 };
 
 export default function PostsList({ data }: PostsProps) {

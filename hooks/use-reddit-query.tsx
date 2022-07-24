@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import Error from "next/error";
 import { NextRouter } from "next/router";
 import { QueryKey, useQuery, UseQueryOptions } from "react-query";
-import { ThreadResult } from "../types/ThreadsResult";
+import { Comment } from "../types/reddit-api/Comment";
 
 interface UseRedditDataProps<T> {
     router: NextRouter;
@@ -14,7 +14,7 @@ interface UseRedditDataProps<T> {
     >;
 }
 
-function useRedditQuery<ApiReturnType = ThreadResult>({
+function useRedditQuery<ApiReturnType = Comment>({
     router,
     queryOptions,
 }: UseRedditDataProps<ApiReturnType>) {

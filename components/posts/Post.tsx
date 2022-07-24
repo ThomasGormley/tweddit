@@ -1,56 +1,35 @@
 import PostThumbnail from "./PostThumbnail";
 import React from "react";
-import QuickActions from "../QuickActions";
+import QuickActions, { isThreadPredicate } from "../QuickActions";
 import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowShortSuffix";
 import { NextRouter, useRouter } from "next/router";
 import clsx from "clsx";
-import type { PostQuickActions } from "../../types/post";
 import MediaThumbnail from "../MediaThumbnail";
-import { Thread } from "../../types/ThreadsResult";
-import { Comment } from "../../types/CommentsResult";
 import useSubredditData from "../../hooks/use-subreddit-data";
+import { Link } from "../../types/reddit-api/Link";
+import { Comment } from "../../types/reddit-api/Comment";
+import { isLinkType } from "../../lib/predicates";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);
 };
 
-type Post = Comment | Thread;
+type Post = Link | Comment;
 
+/**
+ * Used in home feed, and as head node of a replies thread
+ */
 export default function Post({ post }: { post: Post }) {
     const router = useRouter();
 
-    const isThreadPredicate = (post: Post): post is Comment => {
-        return "body" in post.data;
-    };
-
     const isThread = isThreadPredicate(post);
-
+    const isLinkFromAPI = isLinkType(post);
     const { data: subredditData, isLoading } = useSubredditData(
         post.data.subreddit,
     );
-
-    const hasReplies = isThread && Boolean(post.data.replies);
-    const numReplies =
-        isThread && hasReplies ? post.data.replies.data.children.length : 0;
-
-    const quickActions: PostQuickActions = [
-        {
-            type: "comments",
-            data: post.data.num_comments ?? numReplies,
-        },
-        {
-            type: "crossposts",
-            data: 0,
-        },
-        {
-            type: "upvotes",
-            data: post.data.ups,
-        },
-        {
-            type: "share",
-        },
-    ];
-
+    const hasPreview =
+        isLinkFromAPI && post?.data?.preview && post.data.preview?.enabled;
+    const hasReplies = isThread && !isLinkFromAPI && Boolean(post.data.replies);
     const postedAt = new Date(post.data.created * 1000);
     const postedAgo = formatTimeDistanceToNowShortSuffix(postedAt);
 
@@ -97,12 +76,16 @@ export default function Post({ post }: { post: Post }) {
                         </time>
                     </div>
 
-                    <p>{isThread ? post.data.body : post.data.title}</p>
+                    <p>
+                        {isThread && !isLinkFromAPI
+                            ? post.data.body
+                            : post.data.title}
+                    </p>
 
-                    {!isThread && post.data.preview?.enabled && (
+                    {hasPreview && (
                         <MediaThumbnail preview={post.data.preview} />
                     )}
-                    <QuickActions actions={quickActions} />
+                    <QuickActions post={post} />
                 </div>
             </div>
         </article>

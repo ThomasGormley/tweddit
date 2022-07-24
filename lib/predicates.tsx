@@ -10,7 +10,9 @@ import {
 export const isLinkType = (arg: KindTypePrefixes): arg is Link => {
     return arg.kind === "t3";
 };
-
+export const isCommentType = (arg: KindTypePrefixes): arg is Comment => {
+    return arg.kind === "t1";
+};
 export const isMoreType = (arg: KindTypePrefixes): arg is More => {
     return arg.kind === "more";
 };

@@ -1,27 +1,35 @@
 import React from "react";
 import { numberFormatter } from "../lib/util/numberFormatter";
 import ActionIcon from "./ActionIcon";
-import { isLinkType, isListingType, isMoreType } from "../lib/predicates";
+import {
+    isCommentType,
+    isLinkType,
+    isListingType,
+    isMoreType,
+} from "../lib/predicates";
 import { Comment, Listing, More, Post } from "../types/reddit-api";
 
 function getNumberOfRepliesFromCommentType(post: Comment | Listing): number {
     const isListing = isListingType(post);
     if (isListing) {
-        return getNumberOfRepliesFromCommentType(
-            post.data.children[0] as Comment,
-        );
+        const newPost = post.data.children[0];
+        const isComment = isCommentType(newPost);
+        if (isComment) {
+            return getNumberOfRepliesFromCommentType(newPost);
+        } else {
+            throw Error("Why is a t3_ type Link here?");
+        }
     }
     const hasReplies = Boolean(post.data.replies);
 
+    const postDataRepliesArray = post.data.replies.data.children;
     const moreObject = hasReplies
-        ? post.data.replies.data.children.find((obj) => isMoreType(obj)) ?? {}
+        ? postDataRepliesArray.find((obj) => isMoreType(obj)) ?? {}
         : {};
 
     if ("data" in moreObject) {
         return (
-            (moreObject as More).data.count +
-            post.data.replies.data.children.length -
-            1
+            (moreObject as More).data.count + postDataRepliesArray.length - 1
         );
     }
 

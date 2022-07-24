@@ -1,25 +1,22 @@
 import PostThumbnail from "./PostThumbnail";
 import React from "react";
-import QuickActions, { isThreadPredicate } from "../QuickActions";
+import QuickActions from "../QuickActions";
 import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowShortSuffix";
 import { NextRouter, useRouter } from "next/router";
 import clsx from "clsx";
 import MediaThumbnail from "../MediaThumbnail";
 import useSubredditData from "../../hooks/use-subreddit-data";
-import { Link } from "../../types/reddit-api/Link";
-import { Comment } from "../../types/reddit-api/Comment";
-import { isLinkType } from "../../lib/predicates";
+import { isLinkType, isThreadPredicate } from "../../lib/predicates";
+import { Post as TPost } from "../../types/reddit-api";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);
 };
 
-type Post = Link | Comment;
-
 /**
  * Used in home feed, and as head node of a replies thread
  */
-export default function Post({ post }: { post: Post }) {
+export default function Post({ post }: { post: TPost }) {
     const router = useRouter();
 
     const isThread = isThreadPredicate(post);
@@ -76,11 +73,7 @@ export default function Post({ post }: { post: Post }) {
                         </time>
                     </div>
 
-                    <p>
-                        {isThread && !isLinkFromAPI
-                            ? post.data.body
-                            : post.data.title}
-                    </p>
+                    <p>{!isLinkFromAPI ? post.data.body : post.data.title}</p>
 
                     {hasPreview && (
                         <MediaThumbnail preview={post.data.preview} />

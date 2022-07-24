@@ -1,17 +1,8 @@
 import React from "react";
 import { numberFormatter } from "../lib/util/numberFormatter";
-import { Link } from "../types/reddit-api/Link";
 import ActionIcon from "./ActionIcon";
 import { isLinkType, isListingType, isMoreType } from "../lib/predicates";
-import { Comment } from "../types/reddit-api/Comment";
-import { More } from "../types/reddit-api/More";
-import { Listing } from "../types/reddit-api/Listing";
-
-export const isThreadPredicate = (post: Post): post is Comment => {
-    return "body" in post.data;
-};
-
-type Post = Comment | Link;
+import { Comment, Listing, More, Post } from "../types/reddit-api";
 
 function getNumberOfRepliesFromCommentType(post: Comment | Listing): number {
     const isListing = isListingType(post);
@@ -39,54 +30,29 @@ function getNumberOfRepliesFromCommentType(post: Comment | Listing): number {
         : getNumberOfRepliesFromCommentType(post.data.replies);
 }
 
+// type Post = Link | Comment
 export default function QuickActions({ post }: { post: Post }) {
-    const isLinkFromAPI = isLinkType(post);
-
-    console.log({
-        [isLinkFromAPI ? "link" : "comment"]: post,
-    });
-    let actions;
-    if (!isLinkFromAPI) {
-        // const hasReplies = Boolean(post.data.replies);
-        const numReplies = getNumberOfRepliesFromCommentType(post);
-
-        actions = [
-            {
-                type: "comments",
-                data: numReplies,
-            },
-            {
-                type: "crossposts",
-                // post.data.num_crossposts does not exist on this object type
-                data: 0,
-            },
-            {
-                type: "upvotes",
-                data: post.data.ups,
-            },
-            {
-                type: "share",
-            },
-        ];
-    } else {
-        actions = [
-            {
-                type: "comments",
-                data: post.data.num_comments,
-            },
-            {
-                type: "crossposts",
-                data: post.data.num_crossposts ?? 0,
-            },
-            {
-                type: "upvotes",
-                data: post.data.ups,
-            },
-            {
-                type: "share",
-            },
-        ];
-    }
+    const typeIsLink = isLinkType(post);
+    const actions = [
+        {
+            type: "comments",
+            data: typeIsLink
+                ? post.data.num_comments
+                : getNumberOfRepliesFromCommentType(post),
+        },
+        {
+            type: "crossposts",
+            // post.data.num_crossposts does not exist on this object type
+            data: typeIsLink ? post.data.num_crossposts ?? 0 : 0,
+        },
+        {
+            type: "upvotes",
+            data: post.data.ups,
+        },
+        {
+            type: "share",
+        },
+    ];
 
     return (
         <div className="my-[12px] inline-flex w-full max-w-[425px] justify-between gap-[8px] text-13px leading-[16px] text-dim-grey">

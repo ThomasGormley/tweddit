@@ -1,15 +1,13 @@
 import PostThumbnail from "./PostThumbnail";
 import React, { Fragment } from "react";
-import QuickActions, { isThreadPredicate } from "../QuickActions";
-import { useQuery } from "react-query";
+import QuickActions from "../QuickActions";
 import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowShortSuffix";
-import { useSession } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
-import type { PostQuickActions } from "../../types/post";
-import { Comment } from "../../types/reddit-api/Link";
 import RepliesThread from "../RepliesThread";
 import useSnudownToReact from "../../hooks/use-snudown-to-react";
 import useSubredditData from "../../hooks/use-subreddit-data";
+import { Comment } from "../../types/reddit-api";
+import { isThreadPredicate } from "../../lib/predicates";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);
@@ -25,26 +23,6 @@ export default function Reply({ comment }: { comment: Comment }) {
         comment.data.subreddit,
     );
     const isThread = isThreadPredicate(comment);
-    // console.log({ fromReplyAsTypeComment: comment, isThread });
-
-    // const quickActions: PostQuickActions = [
-    //     {
-    //         type: "comments",
-    //         data: hasReplies ? comment.data.replies.data.children.length : 0,
-    //     },
-    //     {
-    //         type: "crossposts",
-    //         data: comment.data.num_crossposts ?? 0,
-    //     },
-    //     {
-    //         type: "upvotes",
-    //         data: comment.data.ups,
-    //     },
-    //     {
-    //         type: "share",
-    //     },
-    // ];
-
     const postedAt = new Date(comment.data.created * 1000);
     const postedAgo = formatTimeDistanceToNowShortSuffix(postedAt);
 

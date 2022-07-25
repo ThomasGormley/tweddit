@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { markdown } from "snudown-js";
+import * as snudown from "snudown-js";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import HtmlToReact from "html-to-react";
@@ -17,7 +17,6 @@ const preprocessingInstructions = [
             return node.parent.name === "a";
         },
         preprocessNode: function (node: any) {
-
             node.parent.attribs = {
                 style: "text-decoration-line: underline;",
             };
@@ -47,7 +46,7 @@ export default function useSnudownToReact(md: string): {
     reactElement: ReactElement;
     data: Record<string, unknown>;
 } {
-    const html = markdown(md);
+    const html = snudown.markdown(md);
     const reactElement = htmlToReactParser.parseWithInstructions(
         html,
         isValidNode,

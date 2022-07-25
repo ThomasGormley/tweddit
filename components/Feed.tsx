@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import useRedditQuery from "../hooks/use-reddit-query";
-import { isLinkType } from "../lib/predicates";
 import { Link } from "../types/reddit-api";
 import { Listing } from "../types/reddit-api/Listing";
 import PostSkeleton from "./posts/PostSkeleton";
@@ -21,7 +20,6 @@ export function Feed() {
                 })
             ) : (
                 <>
-                    {console.log({ FeedQueryData: data })}
                     <PostsList data={data[0].data.children} />
                 </>
             )}

@@ -6,8 +6,9 @@ import { NextRouter, useRouter } from "next/router";
 import RepliesThread from "../RepliesThread";
 import useSnudownToReact from "../../hooks/use-snudown-to-react";
 import useSubredditData from "../../hooks/use-subreddit-data";
-import { Comment } from "../../types/reddit-api";
+import { Comment, More } from "../../types/reddit-api";
 import { isThreadPredicate } from "../../lib/predicates";
+import { ListingData } from "../../types/reddit-api/Listing";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);
@@ -25,6 +26,8 @@ export default function Reply({ comment }: { comment: Comment }) {
     const isThread = isThreadPredicate(comment);
     const postedAt = new Date(comment.data.created * 1000);
     const postedAgo = formatTimeDistanceToNowShortSuffix(postedAt);
+
+    console.log({ Reply: comment });
 
     return (
         <Fragment>
@@ -69,7 +72,14 @@ export default function Reply({ comment }: { comment: Comment }) {
                     </div>
                 </div>
             </article>
-            {hasReplies && <RepliesThread data={comment.data.replies.data} />}
+            {hasReplies && (
+                <RepliesThread
+                    data={
+                        // TODO: fix type narrowing here
+                        comment.data.replies.data as ListingData<Comment | More>
+                    }
+                />
+            )}
         </Fragment>
     );
 }

@@ -1,9 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { Comment } from "../types/reddit-api/Comment";
+import { ListingData } from "../types/reddit-api/Listing";
+import { More } from "../types/reddit-api/More";
 import RepliesThread from "./RepliesThread";
 
 type ShowReplies = {
-    data: Comment;
+    data: ListingData<Comment | More>;
 };
 
 export function ShowReplies({ data }: ShowReplies) {

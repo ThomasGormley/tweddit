@@ -1,27 +1,35 @@
 import React, { Fragment } from "react";
-import { CommentData } from "../types/reddit-api/Comment";
+import { isCommentType, isListingType } from "../lib/predicates";
+import { More } from "../types/reddit-api";
+import { Comment } from "../types/reddit-api/Comment";
+import { Listing, ListingData } from "../types/reddit-api/Listing";
 import Post from "./posts/Post";
 import { ShowReplies } from "./ShowReplies";
 
 type ThreadProps = {
-    data: CommentData;
+    data: ListingData<Comment | More>;
 };
 
 export default function RepliesThread({ data }: ThreadProps) {
+    console.log({ RepliesThread: data });
+    const commentArray = data.children.filter(isCommentType);
     return (
         <Fragment>
-            {data.children
+            {commentArray
                 .sort((a, b) => b.data.ups - a.data.ups)
                 .map((post, i: number) => {
                     const hasReplies = Boolean(post.data.replies);
-                    if (post.kind === "t1" && i == 0) {
+                    if (i == 0) {
                         return (
                             <Fragment key={post.data.id}>
                                 <Post post={post} />
                                 {hasReplies && (
                                     <ShowReplies
                                         data={
-                                            data.children[0].data.replies?.data
+                                            post.data.replies
+                                                .data as ListingData<
+                                                Comment | More
+                                            >
                                         }
                                     />
                                 )}

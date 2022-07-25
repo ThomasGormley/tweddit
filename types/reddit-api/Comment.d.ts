@@ -1,4 +1,4 @@
-import { Listing } from "./Listing";
+import { KindTypePrefixes, Listing } from "./Listing";
 
 /**
  * Comment interface kind: `t1`

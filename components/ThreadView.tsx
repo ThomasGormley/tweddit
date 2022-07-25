@@ -7,6 +7,8 @@ import useRedditQuery from "../hooks/use-reddit-query";
 import LoadingSpinner from "./LoadingSpinner";
 import { Link } from "../types/reddit-api/Link";
 import Banner from "./Banner";
+import { Listing, More } from "../types/reddit-api";
+import { isCommentType } from "../lib/predicates";
 
 export default function ThreadView() {
     const router = useRouter();
@@ -27,10 +29,11 @@ export default function ThreadView() {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const [headPostData, commentsData]: [Comment, Link] = data;
-    const replyComments = commentsData.data.children.filter(
-        (comment) => comment.kind === "t1",
-    );
+    const [headPostData, commentsData]: [
+        Listing<Link>,
+        Listing<Comment | More>,
+    ] = data;
+    const replyComments = commentsData.data.children.filter(isCommentType);
     return (
         <Fragment>
             <Banner>

@@ -2,14 +2,13 @@ import { useRouter } from "next/router";
 import React from "react";
 import useSubredditData from "../../hooks/use-subreddit-data";
 import { numberFormatter } from "../../lib/util/numberFormatter";
-import { Comment } from "../../types/reddit-api/Link";
-import { CommentDataChildren } from "../../types/reddit-api/Comment";
+import { Link } from "../../types/reddit-api";
 import MediaThumbnail from "../MediaThumbnail";
 import { handleOnClick } from "./Post";
 import PostThumbnail from "./PostThumbnail";
 
 type PostProps = {
-    post: Comment;
+    post: Link;
 };
 
 export default function HeadPost({ post }: PostProps) {

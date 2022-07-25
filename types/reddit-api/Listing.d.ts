@@ -6,15 +6,15 @@ export type KindTypePrefixes = Comment | More | Link;
 /**
  * Listing is general term for result that can contain any kind `t1, t3, more`
  */
-export interface Listing {
+export interface Listing<T = KindTypePrefixes> {
     kind: "Listing";
-    data: ListingData;
+    data: ListingData<T>;
 }
 
-export interface ListingData {
+export interface ListingData<T = KindTypePrefixes> {
     modhash: string;
     dist: number;
-    children: KindTypePrefixes[];
+    children: T[];
     after: string;
     before: null;
 }

@@ -12,7 +12,7 @@ import { Comment, Listing, More, Post } from "../types/reddit-api";
 function getNumberOfRepliesFromCommentType(post: Comment | Listing): number {
     const isListing = isListingType(post);
     if (isListing) {
-        const newPost = post.data.children[0];
+        const newPost = post.data?.children[0];
         const isComment = isCommentType(newPost);
         if (isComment) {
             return getNumberOfRepliesFromCommentType(newPost);
@@ -22,7 +22,7 @@ function getNumberOfRepliesFromCommentType(post: Comment | Listing): number {
     }
     const hasReplies = Boolean(post.data.replies);
 
-    const postDataRepliesArray = post.data.replies.data.children;
+    const postDataRepliesArray = post.data.replies.data?.children;
     const moreObject = hasReplies
         ? postDataRepliesArray.find((obj) => isMoreType(obj)) ?? {}
         : {};
@@ -34,7 +34,7 @@ function getNumberOfRepliesFromCommentType(post: Comment | Listing): number {
     }
 
     return !hasReplies
-        ? post.data.depth
+        ? 0
         : getNumberOfRepliesFromCommentType(post.data.replies);
 }
 

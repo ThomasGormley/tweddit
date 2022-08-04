@@ -16,7 +16,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-query": "^3.39.0",
-        "snudown-js": "^3.2.3",
+        "snudown-js": "^4.0.0",
         "tailwindcss-safe-area": "^0.2.2"
     },
     "devDependencies": {

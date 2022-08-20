@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import "../public/fonts/fonts.css";
 import type { AppProps } from "next/app";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SessionProvider } from "next-auth/react";
 import { Fragment } from "react";
 import Head from "next/head";

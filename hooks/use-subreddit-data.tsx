@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import { useQuery } from "react-query";
+import { useQuery } from '@tanstack/react-query';
 
 export const subredditDataQueryKey = "subreddit-data";
 

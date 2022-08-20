@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import Error from "next/error";
 import { NextRouter } from "next/router";
-import { QueryKey, useQuery, UseQueryOptions } from "react-query";
+import { QueryKey, useQuery, UseQueryOptions } from "@tanstack/react-query";
 import { Comment } from "../types/reddit-api/Comment";
 
 interface UseRedditDataProps<T> {
@@ -30,7 +30,7 @@ function useRedditQuery<ApiReturnType = Comment>({
     const buildPath = isThread ? asPath : `${asPath}/.json?html_decode=1`;
 
     return useQuery<Array<ApiReturnType>, Error>({
-        queryKey: asPath,
+        queryKey: [asPath],
         enabled: Boolean(session?.accessToken),
         retry: 3,
         queryFn: async () => {
@@ -44,10 +44,10 @@ function useRedditQuery<ApiReturnType = Comment>({
             const json = await res.json();
 
             if (json instanceof Array) {
-                return json;
+                return json as Array<ApiReturnType>;
             }
 
-            return [json];
+            return [json] as Array<ApiReturnType>;
         },
         ...queryOptions,
     });

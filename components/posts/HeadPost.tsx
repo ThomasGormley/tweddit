@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import React from "react";
-import useSubredditData from "../../hooks/use-subreddit-data";
+import useSubredditData from "@/hooks/use-subreddit-data";
 import { numberFormatter } from "../../lib/util/numberFormatter";
-import { Link } from "../../types/reddit-api";
+import { Link } from "@/types/reddit-api";
 import MediaThumbnail from "../MediaThumbnail";
 import { handleOnClick } from "./Post";
 import PostThumbnail from "./PostThumbnail";

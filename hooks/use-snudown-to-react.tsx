@@ -1,63 +1,53 @@
-import React, { ReactElement } from "react";
 import * as snudown from "snudown-js";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import HtmlToReact from "html-to-react";
+import parse, {
+    DOMNode,
+    Element,
+    HTMLReactParserOptions,
+} from "html-react-parser";
 
-function isValidNode() {
-    return true;
+// shouldProcessNode: function (node: any) {
+//     return node.parent.name === "a";
+// },
+// processNode: function (node: any, children: any, index: any) {
+//     return node?.data?.toUpperCase();
+// },
+
+function domNodeIsElement(domNode: DOMNode): domNode is Element {
+    return domNode.type === "tag";
 }
 
-const htmlToReactParser = new HtmlToReact.Parser();
-const processNodeDefinitions = new HtmlToReact.ProcessNodeDefinitions(React);
+let hasAnchor = false;
+const options: HTMLReactParserOptions = {
+    replace(domNode) {
+        if (!domNodeIsElement(domNode)) return;
+        const element = domNode;
+        switch (element.name) {
+            case "a":
+                hasAnchor = true;
 
-const preprocessingInstructions = [
-    {
-        shouldPreprocessNode: function (node: any) {
-            return node.parent.name === "a";
-        },
-        preprocessNode: function (node: any) {
-            node.parent.attribs = {
-                style: "text-decoration-line: underline;",
-            };
-        },
-    },
-];
+                element.attribs = {
+                    className: "underline",
+                    ...element.attribs,
+                };
+                return element;
 
-const processingInstructions = [
-    {
-        shouldProcessNode: function (node: any) {
-            return node.parent.name === "a";
-        },
-        processNode: function (node: any, children: any, index: any) {
-            return node?.data?.toUpperCase();
-        },
+            default:
+                break;
+        }
     },
-    {
-        // Anything else
-        shouldProcessNode: function (node: any) {
-            return true;
-        },
-        processNode: processNodeDefinitions.processDefaultNode,
-    },
-];
+};
 
 export default function useSnudownToReact(md: string): {
-    reactElement: ReactElement;
+    reactElement: string | JSX.Element | JSX.Element[];
     data: Record<string, unknown>;
 } {
-    const html = snudown.markdown(md);
-    const reactElement = htmlToReactParser.parseWithInstructions(
-        html,
-        isValidNode,
-        processingInstructions,
-        preprocessingInstructions,
-    );
+    const html = snudown.markdown(md, { nofollow: false });
+    const reactElement = parse(html, options);
 
     return {
-        reactElement: reactElement,
+        reactElement,
         data: {
-            hasMedia: true,
+            hasAnchor,
         },
     };
 }

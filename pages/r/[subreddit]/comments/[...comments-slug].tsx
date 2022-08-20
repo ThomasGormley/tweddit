@@ -1,8 +1,7 @@
 import React from "react";
-import BasePage from "../../../base.page";
-import { getServerSideProps as baseGetServerSideProps } from "../../../base.page";
-import ThreadView from "../../../../components/ThreadView";
-import MainWrapper from "../../../../components/MainWrapper";
+import BasePage, { getServerSideProps as baseGetServerSideProps } from "@/pages/base.page";
+import ThreadView from "@/components/ThreadView";
+import MainWrapper from "@/components/MainWrapper";
 
 function CommentsSlug() {
     return (

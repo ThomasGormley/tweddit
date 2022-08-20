@@ -1,28 +1,25 @@
 import { JWT } from "next-auth/jwt";
+import config from "@/lib/config";
 
+const options = {
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Basic ${config.reddit.clientSecretB64}`,
+    },
+    method: "POST",
+};
+
+/**
+ * Returns a new token with anon `accessToken`. If an error occurs,
+ * returns the an error property
+ */
 export async function getPublicAccessToken() {
     try {
-        const url =
-            "https://www.reddit.com/api/v1/access_token?" +
-            new URLSearchParams({
-                grant_type: "client_credentials",
-                device_id: "DONTTRACKTHISDEVICEPLEASE",
-            } as any);
+        const url = new URL(config.urls.reddit["access-token"]);
+        url.searchParams.append("grant_type", "client_credentials");
+        url.searchParams.append("device_id", "DONTTRACKTHISDEVICEPLEASE");
 
-        const b64String = Buffer.from(
-            `${process.env.REDDIT_CLIENT_ID}:${process.env.REDDIT_CLIENT_SECRET}`,
-        ).toString("base64");
-
-
-        const response = await fetch(url, {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                Authorization: `Basic ${b64String}`,
-            },
-
-            method: "POST",
-        });
-
+        const response = await fetch(url, options);
         const publicToken = await response.json();
 
         if (!response.ok) {
@@ -34,7 +31,7 @@ export async function getPublicAccessToken() {
             accessToken: publicToken.access_token,
         };
     } catch (error) {
-        console.log(error);
+        console.error(error);
 
         return {
             message: "PublicAccessTokenError",
@@ -58,25 +55,11 @@ export async function refreshAccessToken(token: JWT) {
         };
     }
     try {
-        const url =
-            "https://www.reddit.com/api/v1/access_token?" +
-            new URLSearchParams({
-                grant_type: "refresh_token",
-                refresh_token: token.refreshToken,
-            } as any);
+        const url = new URL(config.urls.reddit["access-token"]);
+        url.searchParams.append("grant_type", "refresh_token");
+        url.searchParams.append("refresh_token", token.refreshToken);
 
-        const b64String = Buffer.from(
-            `${process.env.REDDIT_CLIENT_ID}:${process.env.REDDIT_CLIENT_SECRET}`,
-        ).toString("base64");
-        const response = await fetch(url, {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                Authorization: `Basic ${b64String}`,
-            },
-
-            method: "POST",
-        });
-
+        const response = await fetch(url, options);
         const refreshedTokens = await response.json();
 
         if (!response.ok) {

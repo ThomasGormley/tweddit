@@ -1,5 +1,5 @@
 import PostThumbnail from "./PostThumbnail";
-import React from "react";
+import React, { forwardRef } from "react";
 import QuickActions from "../QuickActions";
 import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowShortSuffix";
 import { NextRouter, useRouter } from "next/router";
@@ -13,10 +13,14 @@ export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);
 };
 
-/**
- * Used in home feed, and as head node of a replies thread
- */
-export default function Post({ post }: { post: TPost }) {
+interface PostProps {
+    post: TPost;
+}
+
+function ForwardedPost(
+    { post }: PostProps,
+    ref: React.Ref<HTMLElement> | null,
+) {
     const router = useRouter();
 
     const isThread = isThreadPredicate(post);
@@ -32,6 +36,7 @@ export default function Post({ post }: { post: TPost }) {
 
     return (
         <article
+            ref={ref}
             className={clsx(
                 "border-b border-dim-border px-[16px]",
                 isThread && "border-none",
@@ -84,3 +89,10 @@ export default function Post({ post }: { post: TPost }) {
         </article>
     );
 }
+
+/**
+ * Used in home feed, and as head node of a replies thread
+ */
+const Post = forwardRef(ForwardedPost);
+
+export default Post;

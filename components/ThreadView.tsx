@@ -5,15 +5,15 @@ import HeadPost from "./posts/HeadPost";
 import { useRouter } from "next/router";
 import useRedditQuery from "../hooks/use-reddit-query";
 import LoadingSpinner from "./LoadingSpinner";
-import { Link } from "../types/reddit-api/Link";
 import Banner from "./Banner";
-import { Listing, More } from "../types/reddit-api";
+import { Link, Listing, More } from "../types/reddit-api";
 import { isCommentType } from "../lib/predicates";
+import { LinkData } from "@/types/reddit-api/Link";
 
 export default function ThreadView() {
     const router = useRouter();
 
-    const { data, isLoading } = useRedditQuery<Link>({
+    const { data, isLoading } = useRedditQuery<LinkData>({
         router,
     });
 

@@ -1,4 +1,5 @@
-import { signIn, signOut } from "next-auth/react";
+// import { signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 import Banner from "../components/Banner";
 import { Feed } from "../components/Feed";
 import MainWrapper from "../components/MainWrapper";
@@ -7,12 +8,13 @@ import BasePage, {
 } from "./base.page";
 
 function Index() {
-    const handleSignIn = () => {
-        signIn("reddit");
-    };
-    const handleSignOut = () => {
-        signOut();
-    };
+    const { asPath } = useRouter();
+    // const handleSignIn = () => {
+    //     signIn("reddit");
+    // };
+    // const handleSignOut = () => {
+    //     signOut();
+    // };
     return (
         <BasePage>
             <MainWrapper>
@@ -53,7 +55,9 @@ function Index() {
                                 <div className="pb-[12px]">
                                     <button className="min-h-[24px] min-w-[24px] rounded-full px-[12px] font-bold transition duration-[0.2] hover:bg-primary/10">
                                         <span className="break-words text-14px leading-[16px] text-primary">
-                                            /r/AskReddit
+                                            {asPath === "/"
+                                                ? "/r/Home"
+                                                : asPath}
                                         </span>
                                     </button>
                                 </div>

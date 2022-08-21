@@ -87,3 +87,32 @@ export async function refreshToken(token: JWT) {
     }
     return await getPublicAccessToken();
 }
+
+export async function fetchRedditQueryFn<ApiReturnType>(
+    path: string,
+    accessToken: string,
+    after?: string,
+) {
+    const url = new URL(path, config.urls.reddit.oauth);
+
+    if (after) {
+        url.searchParams.append("after", after);
+    }
+
+    const headers = new Headers({
+        Authorization: `bearer ${accessToken}`,
+    });
+
+    const res = await fetch(url, {
+        method: "GET",
+        headers: headers,
+    });
+
+    const json = await res.json();
+
+    if (json instanceof Array) {
+        return json as Array<ApiReturnType>;
+    }
+
+    return [json] as Array<ApiReturnType>;
+}

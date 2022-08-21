@@ -17,6 +17,7 @@ export default {
         },
         reddit: {
             "access-token": "https://www.reddit.com/api/v1/access_token?",
+            oauth: "https://oauth.reddit.com",
         },
     },
     reddit: {
@@ -24,4 +25,4 @@ export default {
         clientSecret,
         clientSecretB64,
     },
-};
+} as const;

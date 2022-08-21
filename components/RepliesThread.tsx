@@ -11,7 +11,6 @@ type ThreadProps = {
 };
 
 export default function RepliesThread({ data }: ThreadProps) {
-    console.log({ RepliesThread: data });
     const commentArray = data.children.filter(isCommentType);
     return (
         <Fragment>

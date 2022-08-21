@@ -27,8 +27,6 @@ export default function Reply({ comment }: { comment: Comment }) {
     const postedAt = new Date(comment.data.created * 1000);
     const postedAgo = formatTimeDistanceToNowShortSuffix(postedAt);
 
-    console.log({ Reply: comment });
-
     return (
         <Fragment>
             <article

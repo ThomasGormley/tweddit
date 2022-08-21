@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link } from "@types/reddit-api/Link";
+import { Link } from "@/types/reddit-api/Link";
 import Post from "./Post";
 
 type PostsProps = {

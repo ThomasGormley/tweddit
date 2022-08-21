@@ -1,54 +1,34 @@
 import { useSession } from "next-auth/react";
-import Error from "next/error";
-import { NextRouter } from "next/router";
-import { QueryKey, useQuery, UseQueryOptions } from "@tanstack/react-query";
-import { Comment } from "../types/reddit-api/Comment";
+import { useRouter } from "next/router";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import { Listing } from "@/types/reddit-api";
+import { fetchRedditQueryFn } from "@/lib/reddit";
+import path from "path";
 
-interface UseRedditDataProps<T> {
-    router: NextRouter;
-    queryOptions?: UseQueryOptions<
-        T[],
-        Error<Record<string, unknown>>,
-        T[],
-        QueryKey
-    >;
+export interface UseRedditDataProps<T> {
+    queryOptions?: UseQueryOptions<T[], unknown, T[]>;
 }
 
-function useRedditQuery<ApiReturnType = Comment>({
-    router,
+function useRedditQuery<ApiReturnType extends Listing>({
     queryOptions,
-}: UseRedditDataProps<ApiReturnType>) {
+}: UseRedditDataProps<ApiReturnType> = {}) {
     const { data: session } = useSession();
-    let { asPath, query } = router;
+    const { asPath } = useRouter();
 
-    const isThread = query.slug?.includes("comments");
-
-    if (isThread && asPath.charAt(asPath.length) != "/") {
-        asPath = asPath + "/";
+    if (!session) {
+        throw new Error("No session");
     }
 
-    const buildPath = isThread ? asPath : `${asPath}/.json?html_decode=1`;
+    const params = new URLSearchParams({ html_decode: "1" });
+    const pathWithJsonOpt = path.join(asPath, ".json");
+    const appPath = `${pathWithJsonOpt}?${params.toString()}`;
 
-    return useQuery<Array<ApiReturnType>, Error>({
-        queryKey: [asPath],
+    return useQuery({
+        queryKey: ["useRedditQuery", asPath],
         enabled: Boolean(session?.accessToken),
         retry: 3,
-        queryFn: async () => {
-            const res = await fetch(`https://oauth.reddit.com${buildPath}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `bearer ${session?.accessToken}`,
-                },
-            });
-
-            const json = await res.json();
-
-            if (json instanceof Array) {
-                return json as Array<ApiReturnType>;
-            }
-
-            return [json] as Array<ApiReturnType>;
-        },
+        queryFn: () =>
+            fetchRedditQueryFn<ApiReturnType>(appPath, session?.accessToken),
         ...queryOptions,
     });
 }

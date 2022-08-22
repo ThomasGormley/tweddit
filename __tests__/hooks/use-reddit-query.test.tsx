@@ -53,8 +53,8 @@ describe("useRedditQuery", () => {
 
         const { result } = renderHook(() => useRedditQuery(), { wrapper });
 
-        await waitFor(() => {
-            expect(result.current.isSuccess).toBe(true);
-        });
+        await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+        expect(result.current.data).toBeDefined();
     });
 });

@@ -5,7 +5,7 @@ import { server } from "./server";
 beforeAll(() =>
     server.listen({
         onUnhandledRequest(req) {
-            console.error(
+            console.log(
                 "Found an unhandled %s request to %s",
                 req.method,
                 req.url.href,

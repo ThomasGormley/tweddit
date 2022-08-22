@@ -1,7 +1,7 @@
-import React from 'react';
-import { match } from '../lib/util/match';
+import React from "react";
+import { match } from "../lib/util/match";
 
-function ActionIcon({ action }: any) {
+function ActionIcon({ action }: { action: string }) {
     return match(action, {
         comments() {
             return (

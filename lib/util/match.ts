@@ -3,12 +3,15 @@ export function match<
     TReturnValue = unknown,
 >(
     value: TValue,
-    lookup: Record<TValue, TReturnValue | ((...args: any[]) => TReturnValue)>,
-    ...args: any[]
+    lookup: Record<
+        TValue,
+        TReturnValue | ((...args: unknown[]) => TReturnValue)
+    >,
+    ...args: unknown[]
 ): TReturnValue {
     if (value in lookup) {
         const returnValue = lookup[value];
-        return typeof returnValue === 'function'
+        return typeof returnValue === "function"
             ? returnValue(...args)
             : returnValue;
     }
@@ -18,7 +21,7 @@ export function match<
             lookup,
         )
             .map((key) => `"${key}"`)
-            .join(', ')}.`,
+            .join(", ")}.`,
     );
     if (Error.captureStackTrace) Error.captureStackTrace(error, match);
     throw error;

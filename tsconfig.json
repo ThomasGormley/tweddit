@@ -17,19 +17,19 @@
         "baseUrl": ".",
         "rootDir": ".",
         "paths": {
-            "@/components/*": ["./components/*"],
-            "@/pages/*": ["./pages/*"],
-            "@/hooks/*": ["./hooks/*"],
-            "@/types/*": ["./types/*"],
-            "@/lib/*": ["./lib/*"]
+            "@/components/*": ["src/components/*"],
+            "@/pages/*": ["src/pages/*"],
+            "@/hooks/*": ["src/hooks/*"],
+            "@/types/*": ["src/types/*"],
+            "@/lib/*": ["src/lib/*"]
         }
     },
     "include": [
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        "lib/util/match.jsx",
-        "pages/r/[...slug].tsx.old"
+        "src/lib/util/match.jsx",
+        "src/pages/r/[...slug].tsx.old"
     ],
     "exclude": ["node_modules"]
 }

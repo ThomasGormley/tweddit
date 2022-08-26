@@ -4,8 +4,8 @@ import {
     UseInfiniteQueryOptions,
 } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { Listing } from "@/types/reddit-api";
-import { fetchRedditQueryFn } from "@/lib/reddit";
+import { Listing } from "src/types/reddit-api";
+import { fetchRedditQueryFn } from "src/lib/reddit";
 import path from "path";
 
 interface UseInfiniteRedditDataProps<T> {

@@ -1,4 +1,4 @@
-import useRedditQuery from "@/hooks/use-reddit-query";
+import useRedditQuery from "src/hooks/use-reddit-query";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderHook, waitFor } from "@testing-library/react";
 import * as NextAuthReact from "next-auth/react";

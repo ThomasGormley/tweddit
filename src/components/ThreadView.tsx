@@ -8,14 +8,11 @@ import LoadingSpinner from "./LoadingSpinner";
 import Banner from "./Banner";
 import { Link, Listing, More } from "../types/reddit-api";
 import { isCommentType } from "../lib/predicates";
-import { LinkData } from "@/types/reddit-api/Link";
 
 export default function ThreadView() {
     const router = useRouter();
 
-    const { data, isLoading } = useRedditQuery<LinkData>({
-        router,
-    });
+    const { data, isLoading } = useRedditQuery<Listing<Link>>();
 
     if (isLoading || !data) {
         return (

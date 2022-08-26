@@ -1,4 +1,4 @@
-import { match } from "@/lib/util/match";
+import { match } from "src/lib/util/match";
 
 describe("match", () => {
     const lookup = {

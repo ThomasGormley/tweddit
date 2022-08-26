@@ -1,4 +1,4 @@
-import formatTimeDistanceToNowShortSuffix from "@/lib/util/formatTimeToNowShortSuffix";
+import formatTimeDistanceToNowShortSuffix from "src/lib/util/formatTimeToNowShortSuffix";
 
 describe.skip("formatTimeDistanceToNowShortSuffix", () => {
     it("should return short formatted date string", () => {

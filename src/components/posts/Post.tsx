@@ -5,9 +5,9 @@ import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowSh
 import { NextRouter, useRouter } from "next/router";
 import clsx from "clsx";
 import MediaThumbnail from "../MediaThumbnail";
-import useSubredditData from "@/hooks/use-subreddit-data";
+import useSubredditData from "src/hooks/use-subreddit-data";
 import { isLinkType, isThreadPredicate } from "../../lib/predicates";
-import { Post as TPost } from "@/types/reddit-api";
+import { Post as TPost } from "src/types/reddit-api";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);

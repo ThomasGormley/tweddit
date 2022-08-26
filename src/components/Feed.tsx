@@ -1,5 +1,5 @@
-import useInfiniteRedditQuery from "@/hooks/use-infinite-reddit-query";
-import { Link, Listing } from "@/types/reddit-api";
+import useInfiniteRedditQuery from "src/hooks/use-infinite-reddit-query";
+import { Link, Listing } from "src/types/reddit-api";
 import LoadingSpinner from "./LoadingSpinner";
 import PostSkeleton from "./posts/PostSkeleton";
 import PostsList from "./posts/PostsList";

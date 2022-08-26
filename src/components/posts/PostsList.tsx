@@ -1,9 +1,9 @@
 import React, { Fragment, useRef } from "react";
-import { Link } from "@/types/reddit-api/Link";
+import { Link } from "src/types/reddit-api/Link";
 import Post from "./Post";
-import useIntersectionObserver from "@/hooks/use-intersection-observer";
+import useIntersectionObserver from "src/hooks/use-intersection-observer";
 import { InfiniteQueryObserverResult } from "@tanstack/react-query";
-import { Listing } from "@/types/reddit-api";
+import { Listing } from "src/types/reddit-api";
 
 type PostsProps = {
     data: Array<Link>;

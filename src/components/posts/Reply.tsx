@@ -4,11 +4,11 @@ import QuickActions from "../QuickActions";
 import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowShortSuffix";
 import { NextRouter, useRouter } from "next/router";
 import RepliesThread from "../RepliesThread";
-import useSnudownToReact from "@/hooks/use-snudown-to-react";
-import useSubredditData from "@/hooks/use-subreddit-data";
-import { Comment, More } from "@/types/reddit-api";
+import useSnudownToReact from "src/hooks/use-snudown-to-react";
+import useSubredditData from "src/hooks/use-subreddit-data";
+import { Comment, More } from "src/types/reddit-api";
 import { isThreadPredicate } from "../../lib/predicates";
-import { ListingData } from "@/types/reddit-api/Listing";
+import { ListingData } from "src/types/reddit-api/Listing";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);

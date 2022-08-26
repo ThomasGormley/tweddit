@@ -1,8 +1,8 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-import { Listing } from "@/types/reddit-api";
-import { fetchRedditQueryFn } from "@/lib/reddit";
+import { Listing } from "src/types/reddit-api";
+import { fetchRedditQueryFn } from "src/lib/reddit";
 import path from "path";
 
 export interface UseRedditDataProps<T> {

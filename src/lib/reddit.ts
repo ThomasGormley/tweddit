@@ -1,5 +1,5 @@
 import { JWT } from "next-auth/jwt";
-import config from "@/lib/config";
+import config from "src/lib/config";
 
 const options = {
     headers: {

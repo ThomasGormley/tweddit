@@ -1,8 +1,8 @@
 import useInfiniteRedditQuery from "src/hooks/use-infinite-reddit-query";
 import { Link, Listing } from "src/types/reddit-api";
-import LoadingSpinner from "./LoadingSpinner";
-import PostSkeleton from "./posts/PostSkeleton";
-import PostsList from "./posts/PostsList";
+import LoadingSpinner from "./loading-spinner";
+import PostSkeleton from "./posts/post-skeleton";
+import PostsList from "./posts/posts-list";
 
 function isIndexLastInArray<T extends unknown[]>(i: number, arr: T): boolean {
     return i + 1 === arr.length;

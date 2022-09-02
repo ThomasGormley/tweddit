@@ -123,7 +123,6 @@ export interface LinkData {
     num_crossposts: number;
     media: any;
     is_video: boolean;
-    preview: Preview;
 }
 
 export interface MediaEmbed {}

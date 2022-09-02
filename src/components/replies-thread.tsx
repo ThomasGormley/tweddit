@@ -3,8 +3,8 @@ import { isCommentType, isListingType } from "../lib/predicates";
 import { More } from "../types/reddit-api";
 import { Comment } from "../types/reddit-api/Comment";
 import { Listing, ListingData } from "../types/reddit-api/Listing";
-import Post from "./posts/Post";
-import { ShowReplies } from "./ShowReplies";
+import Post from "./posts/post";
+import { ShowReplies } from "./show-replies";
 
 type ThreadProps = {
     data: ListingData<Comment | More>;

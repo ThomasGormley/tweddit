@@ -1,4 +1,4 @@
-import RightColumn from "./RightColumn";
+import RightColumn from "./right-column";
 
 interface MainWrapperProps {
     children: React.ReactNode;

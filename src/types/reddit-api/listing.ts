@@ -1,6 +1,4 @@
-import { Comment } from "./Comment";
-import { Link } from "./Link";
-import { More } from "./More";
+import { Link, More } from "@/types/reddit-api/";
 
 export type KindTypePrefixes = Comment | More | Link;
 /**

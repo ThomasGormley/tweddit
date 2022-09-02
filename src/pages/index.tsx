@@ -1,8 +1,8 @@
 // import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import Banner from "../components/Banner";
-import { Feed } from "../components/Feed";
-import MainWrapper from "../components/MainWrapper";
+import Banner from "../components/banner";
+import { Feed } from "../components/feed";
+import MainWrapper from "../components/main-wrapper";
 import BasePage, {
     getServerSideProps as baseGetServerSideProps,
 } from "./base.page";

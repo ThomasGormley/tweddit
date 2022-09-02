@@ -1,9 +1,9 @@
-import PostThumbnail from "./PostThumbnail";
+import PostThumbnail from "./post-thumbnail";
 import React, { Fragment } from "react";
-import QuickActions from "../QuickActions";
-import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowShortSuffix";
+import QuickActions from "../quick-actions";
+import formatTimeDistanceToNowShortSuffix from "../../lib/util/format-time-distance-to-now-short-suffix";
 import { NextRouter, useRouter } from "next/router";
-import RepliesThread from "../RepliesThread";
+import RepliesThread from "../replies-thread";
 import useSnudownToReact from "src/hooks/use-snudown-to-react";
 import useSubredditData from "src/hooks/use-subreddit-data";
 import { Comment, More } from "src/types/reddit-api";

@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
 import { Comment } from "../types/reddit-api/Comment";
-import Replies from "./posts/Replies";
-import HeadPost from "./posts/HeadPost";
+import Replies from "./posts/replies";
+import HeadPost from "./posts/head-post";
 import { useRouter } from "next/router";
 import useRedditQuery from "../hooks/use-reddit-query";
-import LoadingSpinner from "./LoadingSpinner";
-import Banner from "./Banner";
+import LoadingSpinner from "./loading-spinner";
+import Banner from "./banner";
 import { Link, Listing, More } from "../types/reddit-api";
 import { isCommentType } from "../lib/predicates";
 

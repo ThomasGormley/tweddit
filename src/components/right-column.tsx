@@ -1,4 +1,4 @@
-import SearchBar from "./SearchBar";
+import SearchBar from "./search-bar";
 
 export default function RightColumn() {
     return (

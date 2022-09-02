@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import React from "react";
 import useSubredditData from "src/hooks/use-subreddit-data";
-import { numberFormatter } from "../../lib/util/numberFormatter";
+import { numberFormatter } from "../../lib/util/number-formatter";
 import { Link } from "src/types/reddit-api";
-import MediaThumbnail from "../MediaThumbnail";
-import { handleOnClick } from "./Post";
-import PostThumbnail from "./PostThumbnail";
+import MediaThumbnail from "../media-thumbnail";
+import { handleOnClick } from "./post";
+import PostThumbnail from "./post-thumbnail";
 
 type PostProps = {
     post: Link;

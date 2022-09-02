@@ -1,6 +1,6 @@
 import React from "react";
-import { numberFormatter } from "../lib/util/numberFormatter";
-import ActionIcon from "./ActionIcon";
+import { numberFormatter } from "../lib/util/number-formatter";
+import ActionIcon from "./action-icon";
 import {
     isCommentType,
     isLinkType,

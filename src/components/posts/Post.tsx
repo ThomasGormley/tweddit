@@ -1,10 +1,10 @@
-import PostThumbnail from "./PostThumbnail";
+import PostThumbnail from "./post-thumbnail";
 import React, { forwardRef } from "react";
-import QuickActions from "../QuickActions";
-import formatTimeDistanceToNowShortSuffix from "../../lib/util/formatTimeToNowShortSuffix";
+import QuickActions from "../quick-actions";
+import formatTimeDistanceToNowShortSuffix from "../../lib/util/format-time-distance-to-now-short-suffix";
 import { NextRouter, useRouter } from "next/router";
 import clsx from "clsx";
-import MediaThumbnail from "../MediaThumbnail";
+import MediaThumbnail from "../media-thumbnail";
 import useSubredditData from "src/hooks/use-subreddit-data";
 import { isLinkType, isThreadPredicate } from "../../lib/predicates";
 import { Post as TPost } from "src/types/reddit-api";

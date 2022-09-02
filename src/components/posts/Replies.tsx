@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Comment } from "src/types/reddit-api";
-import Reply from "./Reply";
+import Reply from "./reply";
 
 export default function Replies({ comments }: { comments: Comment[] }) {
     return (

@@ -1,7 +1,7 @@
 import { HomeIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import React from "react";
-import { primaryNavigationItems } from "./Navigation";
+import { primaryNavigationItems } from "./navigation";
 
 export default function MobileNavigation() {
     return (

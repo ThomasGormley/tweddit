@@ -138,4 +138,3 @@ export interface ChildData {
   is_video?: boolean
 }
 
-export interface Gildings {}

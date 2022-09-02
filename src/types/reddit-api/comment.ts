@@ -1,4 +1,4 @@
-import { KindTypePrefixes, Listing } from "./Listing";
+import { Listing } from "@/types/reddit-api/listing";
 
 /**
  * Comment interface kind: `t1`
@@ -59,7 +59,7 @@ export interface CommentData {
     stickied: boolean;
     author_premium: boolean;
     can_gild: boolean;
-    gildings: Gildings2;
+    gildings: Gildings;
     unrepliable_reason: any;
     author_flair_text_color: any;
     score_hidden: boolean;
@@ -81,7 +81,7 @@ export interface CommentData {
     ups: number;
 }
 
-type Replies = Listing
+type Replies = Listing;
 
 export interface Gildings {
     gid_1?: number;

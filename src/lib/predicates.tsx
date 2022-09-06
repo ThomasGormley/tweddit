@@ -1,11 +1,5 @@
-import {
-    Comment,
-    KindTypePrefixes,
-    Link,
-    Listing,
-    More,
-    Post,
-} from "../types/reddit-api";
+import { Link, Comment, More, KindTypePrefixes, Listing, Post } from "../types/reddit-api";
+
 
 export const isLinkType = (arg: KindTypePrefixes): arg is Link => {
     return arg.kind === "t3";

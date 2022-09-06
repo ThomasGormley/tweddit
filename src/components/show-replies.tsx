@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
-import { Comment } from "../types/reddit-api/Comment";
-import { ListingData } from "../types/reddit-api/Listing";
-import { More } from "../types/reddit-api/More";
+import { Comment } from "../types/reddit-api/comment";
+import { ListingData } from "../types/reddit-api/listing";
+import { More } from "../types/reddit-api/more";
 import RepliesThread from "./replies-thread";
 
 type ShowReplies = {

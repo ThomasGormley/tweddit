@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Comment } from "../types/reddit-api/Comment";
+import { Comment } from "../types/reddit-api/comment";
 import Replies from "./posts/replies";
 import HeadPost from "./posts/head-post";
 import { useRouter } from "next/router";

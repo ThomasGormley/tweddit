@@ -1,6 +1,6 @@
 import type { Link, Comment, LinkData } from "./reddit-api/Link";
 import type { Children } from "./reddit";
-import { CommentDataChildren } from "./reddit-api/Comment";
+import { CommentDataChildren } from "./reddit-api/comment";
 
 export type PostProps<TPost = Comment> = {
     post: TPost;

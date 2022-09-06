@@ -1,10 +1,10 @@
-import { Comment } from "./Comment";
-import { Link } from "./Link";
-import { More } from "./More";
-import { Listing, KindTypePrefixes } from "./Listing";
-export { Comment } from "./Comment";
-export { Link } from "./Link";
-export { More } from "./More";
-export { Listing, KindTypePrefixes } from "./Listing";
+import { Comment } from "./comment";
+import { Link } from "./link";
+import { More } from "./more";
+import { Listing, KindTypePrefixes } from "./listing";
+export { Comment } from "./comment";
+export { Link } from "./link";
+export { More } from "./more";
+export { Listing, KindTypePrefixes } from "./listing";
 
 export type Post = Comment | Link;

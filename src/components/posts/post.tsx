@@ -7,7 +7,7 @@ import clsx from "clsx";
 import MediaThumbnail from "../media-thumbnail";
 import useSubredditData from "src/hooks/use-subreddit-data";
 import { isLinkType, isThreadPredicate } from "../../lib/predicates";
-import { Post as TPost } from "src/types/reddit-api";
+import { Post as TPost } from "src/types/reddit-api/";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
     router.push(permalink);

@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { isCommentType, isListingType } from "../lib/predicates";
 import { More } from "../types/reddit-api";
-import { Comment } from "../types/reddit-api/Comment";
-import { Listing, ListingData } from "../types/reddit-api/Listing";
+import { Comment } from "../types/reddit-api/comment";
+import { Listing, ListingData } from "../types/reddit-api/listing";
 import Post from "./posts/post";
 import { ShowReplies } from "./show-replies";
 

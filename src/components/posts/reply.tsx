@@ -7,7 +7,6 @@ import RepliesThread from "../replies-thread";
 import useSnudownToReact from "src/hooks/use-snudown-to-react";
 import useSubredditData from "src/hooks/use-subreddit-data";
 import { Comment, More } from "src/types/reddit-api";
-import { isThreadPredicate } from "../../lib/predicates";
 import { ListingData } from "src/types/reddit-api/listing";
 
 export const handleOnClick = (router: NextRouter, permalink: string) => {
@@ -23,7 +22,6 @@ export default function Reply({ comment }: { comment: Comment }) {
     const { data: subredditData, isLoading } = useSubredditData(
         comment.data.subreddit,
     );
-    const isThread = isThreadPredicate(comment);
     const postedAt = new Date(comment.data.created * 1000);
     const postedAgo = formatTimeDistanceToNowShortSuffix(postedAt);
 

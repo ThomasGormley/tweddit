@@ -1,4 +1,4 @@
-import type { Link, Comment, LinkData } from "./reddit-api/Link";
+import type { Link, Comment, LinkData } from "./reddit-api/link";
 import type { Children } from "./reddit";
 import { CommentDataChildren } from "./reddit-api/comment";
 

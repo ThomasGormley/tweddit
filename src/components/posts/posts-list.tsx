@@ -1,5 +1,5 @@
 import React, { Fragment, useRef } from "react";
-import { Link } from "src/types/reddit-api/Link";
+import { Link } from "src/types/reddit-api/link";
 import Post from "./post";
 import useIntersectionObserver from "src/hooks/use-intersection-observer";
 import { InfiniteQueryObserverResult } from "@tanstack/react-query";

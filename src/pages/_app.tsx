@@ -1,7 +1,8 @@
 import "../styles/globals.css";
 import "../../public/fonts/fonts.css";
 import type { AppProps } from "next/app";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { SessionProvider } from "next-auth/react";
 import { Fragment } from "react";
 import Head from "next/head";
@@ -39,6 +40,7 @@ function MyApp({
                 <link rel="manifest" href="/manifest.json" />
             </Head>
             <QueryClientProvider client={queryClient}>
+                <ReactQueryDevtools initialIsOpen={false} />
                 <SessionProvider session={session}>
                     <Component {...pageProps} />
                 </SessionProvider>

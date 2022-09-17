@@ -5,6 +5,8 @@ import { Listing } from "src/types/reddit-api";
 import { fetchRedditQueryFn } from "src/lib/reddit";
 import path from "path";
 
+export const USE_REDDIT_QUERY_KEY = "useRedditQuery";
+
 export function createFetchPath(asPath: string) {
     const params = new URLSearchParams({ html_decode: "1" });
     const pathWithJsonOpt = path.join(asPath, ".json");
@@ -22,18 +24,17 @@ function useRedditQuery<ApiReturnType extends Listing>({
     const { data: session } = useSession();
     const { asPath } = useRouter();
 
-    if (!session) {
-        return;
-    }
-
     const fetchPath = createFetchPath(asPath);
 
     return useQuery({
-        queryKey: ["useRedditQuery", asPath],
+        queryKey: [USE_REDDIT_QUERY_KEY, asPath],
         enabled: Boolean(session?.accessToken),
         retry: 3,
         queryFn: () =>
-            fetchRedditQueryFn<ApiReturnType>(fetchPath, session?.accessToken),
+            fetchRedditQueryFn<ApiReturnType>(
+                fetchPath,
+                session?.accessToken ?? "",
+            ),
         ...queryOptions,
     });
 }

@@ -45,6 +45,7 @@
                 "destructuring": "all",
                 "ignoreReadBeforeAssign": false
             }
-        ]
+        ],
+        "no-useless-escape": 0
     }
 }

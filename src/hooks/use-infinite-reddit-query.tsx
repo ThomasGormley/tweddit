@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { Listing } from "src/types/reddit-api";
 import { fetchRedditQueryFn } from "src/lib/reddit";
 import path from "path";
+import { createFetchPath } from "./use-reddit-query";
 
 interface UseInfiniteRedditDataProps<T> {
     queryOptions?: UseInfiniteQueryOptions<T[], unknown, T[]>;
@@ -19,20 +20,18 @@ function useInfiniteRedditQuery<ApiReturnType extends Listing>({
     const { asPath } = useRouter();
 
     if (!session) {
-        throw new Error("No session");
+        return;
     }
 
-    const params = new URLSearchParams({ html_decode: "1" });
-    const pathWithJsonOpt = path.join(asPath, ".json");
-    const appPath = `${pathWithJsonOpt}?${params.toString()}`;
+    const fetchPath = createFetchPath(asPath);
 
     return useInfiniteQuery({
         queryKey: ["useInfiniteRedditQuery", asPath],
         retry: 3,
-        enabled: Boolean(session.accessToken),
+        enabled: Boolean(session?.accessToken),
         queryFn: (ctx) =>
             fetchRedditQueryFn<ApiReturnType>(
-                appPath,
+                fetchPath,
                 session?.accessToken,
                 ctx?.pageParam ?? undefined,
             ),

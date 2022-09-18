@@ -9,3 +9,8 @@ Reddit web client in a Twitter skin
  - [ ] Subreddit switcher
  - [ ] Accurate reply/comment counts
  - [ ] Login/out flow
+ - [ ] Action Buttons
+ - [ ] Media Player/Image album viewer
+ - [ ] Mobile Sidemenu
+ - [ ] Zod validation
+ - [ ] Preload posts with already fetched data?

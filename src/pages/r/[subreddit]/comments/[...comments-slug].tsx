@@ -7,7 +7,7 @@ function CommentsSlug() {
     return (
         <BasePage>
             <MainWrapper>
-                <div className="flex flex-shrink break-words max-w-[600px] flex-col border-dim-border font-display text-off-white sm:border">
+                <div className="flex h-full flex-shrink break-words max-w-[600px] flex-col border-dim-border font-display text-off-white sm:border">
                     <ThreadView />
                 </div>
             </MainWrapper>

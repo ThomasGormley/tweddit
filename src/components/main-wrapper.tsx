@@ -49,7 +49,7 @@ export default function MainWrapper({ children }: MainWrapperProps) {
 
     return (
         <main className="flex min-w-0 flex-shrink flex-grow flex-row items-start justify-center text-14px sm:justify-start sm:text-15px">
-            <div className="flex min-h-screen w-full justify-between md:w-[920px] lg:w-[990px]">
+            <div className="flex min-h-screen h-full w-full justify-between md:w-[920px] lg:w-[990px]">
                 <PullToRefresh
                     isPullable={!!isMobile}
                     maxPullDownDistance={999}

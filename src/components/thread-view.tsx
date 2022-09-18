@@ -16,7 +16,7 @@ export default function ThreadView() {
 
     if (isLoading || !data) {
         return (
-            <div className="flex w-full justify-center">
+            <div className="flex h-full w-full justify-center py-[33%]">
                 <LoadingSpinner />
             </div>
         );

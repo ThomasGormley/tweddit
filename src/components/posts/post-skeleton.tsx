@@ -1,8 +1,13 @@
 import React from "react";
 
+export const DATA_TEST_ID = "post-loading-skeleton";
+
 function PostSkeleton() {
     return (
-        <article className="border-b border-dim-border px-[16px]">
+        <article
+            data-testid={DATA_TEST_ID}
+            className="border-b border-dim-border px-[16px]"
+        >
             <div className="relative flex h-full animate-pulse flex-row items-start py-[12px]">
                 <div className="mr-[12px] flex h-full flex-shrink-0 flex-col items-center space-y-[4px]">
                     <div className="h-[48px] w-[48px]  rounded-full bg-dim-border/75" />
@@ -19,7 +24,7 @@ function PostSkeleton() {
 
                         <PostSkeleton.Bone height="128px" borderRadius="8px" />
 
-                        <div className="items-center flex justify-center px-[16px] space-x-[12px] py-[12px]">
+                        <div className="flex items-center justify-center space-x-[12px] px-[16px] py-[12px]">
                             <PostSkeleton.Bone width="20%" />
                             <PostSkeleton.Bone width="20%" />
                             <PostSkeleton.Bone width="20%" />

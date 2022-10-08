@@ -1,18 +1,18 @@
 import "@testing-library/jest-dom";
-import "next";
-import { server } from "./server";
+import { server } from "mocks";
+import "whatwg-fetch";
 
-beforeAll(() =>
+beforeAll(() => {
     server.listen({
         onUnhandledRequest(req) {
-            console.log(
-                "Found an unhandled %s request to %s",
-                req.method,
-                req.url.href,
-            );
+            // console.log(
+            //     "Found an unhandled %s request to %s",
+            //     req.method,
+            //     req.url.href,
+            // );
         },
-    }),
-);
+    });
+});
 
 afterEach(() => server.resetHandlers());
 

@@ -4,6 +4,7 @@ import { renderHook, waitFor } from "@testing-library/react";
 import * as NextAuthReact from "next-auth/react";
 import type { SessionContextValue } from "next-auth/react";
 import mockRouter from "next-router-mock";
+import { wrapper } from "../__helpers__/render-utils";
 
 jest.mock("next/router", () => require("next-router-mock"));
 
@@ -17,21 +18,6 @@ const useSessionMockReturn: SessionContextValue = {
         },
     },
     status: "authenticated",
-};
-
-const wrapper = ({ children }: { children: JSX.Element }) => {
-    const queryClient = new QueryClient({
-        defaultOptions: {
-            queries: {
-                retry: false,
-            },
-        },
-    });
-    return (
-        <QueryClientProvider client={queryClient}>
-            {children}
-        </QueryClientProvider>
-    );
 };
 
 describe("useRedditQuery", () => {

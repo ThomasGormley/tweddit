@@ -1,11 +1,11 @@
 import { DATA_TEST_ID as SKELETON_DATA_TEST_ID } from "@/components/posts/post-skeleton";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen } from "@testing-library/react";
-import { SessionProvider } from "next-auth/react";
+import { screen } from "@testing-library/react";
 import { Feed } from "src/components/feed";
 import mockRouter from "next-router-mock";
 import homeJson from "mocks/data/reddit-home.json";
-import { renderWithProviders } from "../__helpers__/render-utils";
+import {
+    renderWithProviders,
+} from "../__helpers__/render-utils";
 jest.mock("next/router", () => require("next-router-mock"));
 
 describe("<Feed />", () => {
@@ -15,12 +15,13 @@ describe("<Feed />", () => {
         renderWithProviders(<Feed />);
 
         const skeletonElements = screen.getAllByTestId(SKELETON_DATA_TEST_ID);
+
         expect(skeletonElements);
     });
 
     it("displays posts when successfully fetched", async () => {
-        renderWithProviders(<Feed />);
         const expectedPosts = homeJson.data.children;
+        renderWithProviders(<Feed />);
 
         expectedPosts.forEach(async (post) =>
             expect(
@@ -28,4 +29,19 @@ describe("<Feed />", () => {
             ).toBeInTheDocument(),
         );
     });
+
+    it.todo(
+        "displays loading icon when reaching the end",
+        // async () => {
+        // const defaultQueryClient = new QueryClient({
+        //     defaultOptions: {
+        //         queries: {
+        //             retry: false,
+        //         },
+        //     },
+        // });
+        // renderWithProviders(<Feed />, defaultQueryClient);
+        // fireEvent.scroll(window, { target: { scrollY: 999 } });
+        // }
+    );
 });

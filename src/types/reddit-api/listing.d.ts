@@ -1,6 +1,7 @@
 import { Comment, Link, More } from ".";
+import { Subreddit } from "./subreddit";
 
-export type KindTypePrefixes = Comment | More | Link;
+export type KindTypePrefixes = Comment | More | Link | Subreddit;
 /**
  * Listing is general term for result that can contain any kind `t1, t3, more`
  */

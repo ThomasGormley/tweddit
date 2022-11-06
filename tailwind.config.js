@@ -44,6 +44,9 @@ module.exports = {
                 lg: ["20px", "28px"],
                 xl: ["24px", "32px"],
             },
+            boxShadow: {
+                glow: "0 0px 12px -1px rgba(0, 0, 0, 0.3)",
+            },
         },
     },
     plugins: [safeAreaPlugin],

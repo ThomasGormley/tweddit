@@ -1,3 +1,4 @@
+import useCurrentSubreddit from "@/hooks/use-current-subreddit";
 import useSubredditsSearch from "@/hooks/use-subreddits-search";
 import { Combobox, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -7,11 +8,12 @@ import React, { Fragment, ReactNode, useState } from "react";
 import { useDebounce } from "usehooks-ts";
 import LoadingSpinner from "./loading-spinner";
 
-export function SubredditSwitcher({ current }: { current: string }) {
+export function SubredditSwitcher() {
+    const current = useCurrentSubreddit();
     const [selected, setSelected] = useState(current);
     const [query, setQuery] = useState("");
     const searchText = useDebounce(query, 250);
-    const { data, isFetching } = useSubredditsSearch(searchText);
+    const { data, isFetching, status } = useSubredditsSearch(searchText);
     const router = useRouter();
     const handleOnChange = (value: string) => {
         router.push(`/${value}`);
@@ -55,7 +57,7 @@ export function SubredditSwitcher({ current }: { current: string }) {
                                     <LoadingSpinner />
                                 </div>
                             </SubredditSwitcher.ComboboxOptionsContainer>
-                        ) : selected === "" ? (
+                        ) : selected === "" && status != "success" ? (
                             <SubredditSwitcher.ComboboxOptionsContainer>
                                 Search for a Subreddit
                             </SubredditSwitcher.ComboboxOptionsContainer>

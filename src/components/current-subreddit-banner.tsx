@@ -1,12 +1,10 @@
+import useCurrentSubreddit from "@/hooks/use-current-subreddit";
 import { useRouter } from "next/router";
 import Banner from "./banner";
 import { SubredditSwitcher } from "./subreddit-switcher";
 import UserAvatar from "./user-avatar";
 
-export function CurrentSubredditBanner({}) {
-    const { asPath } = useRouter();
-    const currentSubreddit = asPath === "/" ? "Home" : asPath;
-
+export function CurrentSubredditBanner() {
     return (
         <Banner>
             <div className="block pl-[16px] sm:hidden">
@@ -15,7 +13,7 @@ export function CurrentSubredditBanner({}) {
                 </div>
             </div>
             <div className="px-0 sm:px-[16px]">
-                <SubredditSwitcher current={currentSubreddit} />
+                <SubredditSwitcher />
             </div>
             <div className="flex items-center justify-end pr-[16px]">
                 <div className="flex w-[32px] justify-center sm:w-auto">

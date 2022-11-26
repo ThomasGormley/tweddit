@@ -24,7 +24,7 @@ function Index() {
                 <div className="flex w-full max-w-[600px] flex-col border-dim-border font-display text-off-white sm:border">
                     <CurrentSubredditBanner />
                     <div className="hidden w-full flex-row border-b border-dim-border py-[4px] px-[16px] sm:flex">
-                        <div className="mr-[12px] h-[48px] w-[48px] pt-[4px]">
+                        <div className="mr-[12px] flex flex-shrink-0 h-[48px] w-[48px] ">
                             <UserAvatar />
                         </div>
                         <WhatsHappeningProvider>

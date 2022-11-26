@@ -6,6 +6,7 @@ import type {
     WhatsHappeningReducerState,
 } from "../types";
 import { useWhatsHappeningState } from "../hooks/whats-happening-context";
+import clsx from "clsx";
 
 function PostButtons() {
     const { state, dispatch } = useWhatsHappeningState();
@@ -39,20 +40,29 @@ function PostButtons() {
     );
     return (
         <div className="my-2 flex justify-between">
-            <div className="flex flex-row space-x-2">
-                {buttonsData.map(({ id, ariaLabel, onClick }) => (
-                    <button
-                        type="button"
-                        className="flex h-[36px] w-[36px] items-center justify-center rounded-full transition-colors duration-200 hover:cursor-pointer hover:bg-primary/10"
-                        aria-label={ariaLabel}
-                        key={id}
-                        onClick={onClick}
-                    >
-                        <div className="h-[20px] w-[20px] text-primary">
-                            <PostButtonIcons id={id} />
-                        </div>
-                    </button>
-                ))}
+            <div className="flex flex-row">
+                {buttonsData.map(({ id, ariaLabel, onClick }) => {
+                    const isLinkPostAndMediaIcon =
+                        state.postType === "text" && id === "media";
+                    return (
+                        <button
+                            type="button"
+                            className="flex h-[36px] w-[36px] items-center justify-center rounded-full transition-colors duration-200 hover:cursor-pointer hover:bg-primary/10"
+                            aria-label={ariaLabel}
+                            key={id}
+                            onClick={onClick}
+                        >
+                            <div
+                                className={clsx(
+                                    "h-[20px] w-[20px] text-primary",
+                                    isLinkPostAndMediaIcon && "opacity-50",
+                                )}
+                            >
+                                <PostButtonIcons id={id} />
+                            </div>
+                        </button>
+                    );
+                })}
             </div>
             <button
                 type="submit"

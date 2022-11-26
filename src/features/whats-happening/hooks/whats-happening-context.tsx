@@ -13,6 +13,7 @@ const WhatsHappeningContext = createContext<WhatsHappeningContextType | null>(
 const initialState: WhatsHappeningReducerState = {
     postType: "text",
     repliesToInbox: false,
+    inputHasBeenFocused: false,
 };
 function reducer(
     state: WhatsHappeningReducerState,
@@ -23,6 +24,8 @@ function reducer(
             return { ...state, postType: action.payload };
         case "toggleRepliesToInbox":
             return { ...state, repliesToInbox: !state.repliesToInbox };
+        case "inputHasBeenFocused":
+            return { ...state, inputHasBeenFocused: true };
         default:
             throw new Error();
     }

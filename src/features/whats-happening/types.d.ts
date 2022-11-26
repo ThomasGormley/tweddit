@@ -14,6 +14,7 @@ type SubmissionPostTypes = "link" | "text";
 export type WhatsHappeningReducerState = {
     postType: SubmissionPostTypes;
     repliesToInbox: boolean;
+    inputHasBeenFocused: boolean;
 };
 export type WhatsHappeningReducerActions =
     | {
@@ -22,6 +23,9 @@ export type WhatsHappeningReducerActions =
       }
     | {
           type: "toggleRepliesToInbox";
+      }
+    | {
+          type: "inputHasBeenFocused";
       };
 
 export type WhatsHappeningContextType = {

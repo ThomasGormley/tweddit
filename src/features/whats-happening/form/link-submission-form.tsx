@@ -4,11 +4,11 @@ import { Fragment, useState } from "react";
 import { useForm, useFormContext, useFormState } from "react-hook-form";
 import { useWhatsHappeningState } from "../hooks/whats-happening-context";
 
-export default function TextSubmissionForm() {
+export default function LinkSubmissionForm() {
     const { dispatch, state } = useWhatsHappeningState();
     const { register, handleSubmit, control } = useFormContext<{
         composeTitle: string;
-        composeBody: string;
+        composeUrl: string;
     }>();
     const { onBlur, ...restRegister } = register("composeTitle");
     const { isDirty, errors, touchedFields } = useFormState({ control });
@@ -16,7 +16,7 @@ export default function TextSubmissionForm() {
         state.inputHasBeenFocused ||
         isDirty ||
         touchedFields.composeTitle ||
-        touchedFields.composeBody;
+        touchedFields.composeUrl;
 
     const onSubmit = (data: any) => {
         console.log(data);
@@ -41,15 +41,13 @@ export default function TextSubmissionForm() {
                 {...registerTitle}
             />
             {shouldShowTextarea && (
-                <TextareaField
-                    label="Submission body text"
+                <InputField
+                    label="Submission url"
                     labelClass="sr-only"
-                    placeholder="Text"
-                    rows={1}
-                    wrap="hard"
+                    placeholder="Share a link"
                     className="text-18px w-full resize-none overflow-auto overflow-y-hidden border-none bg-transparent py-[2px] leading-[24px] outline-none"
-                    {...register("composeBody", { required: true })}
-                ></TextareaField>
+                    {...register("composeTitle")}
+                />
             )}
         </form>
     );

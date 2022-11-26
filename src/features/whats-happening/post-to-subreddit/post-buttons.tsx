@@ -1,9 +1,7 @@
 import { PostButtonIcons } from "./post-button-icons";
-import { Dispatch, useMemo } from "react";
+import { useMemo } from "react";
 import type {
     PostButtonsProperties,
-    WhatsHappeningReducerActions,
-    WhatsHappeningReducerState,
 } from "../types";
 import { useWhatsHappeningState } from "../hooks/whats-happening-context";
 import clsx from "clsx";

@@ -1,7 +1,6 @@
 import InputField from "@/components/forms/InputField";
 import TextareaField from "@/components/forms/TextareaField";
-import { Fragment, useState } from "react";
-import { useForm, useFormContext, useFormState } from "react-hook-form";
+import { useFormContext, useFormState } from "react-hook-form";
 import { useWhatsHappeningState } from "../hooks/whats-happening-context";
 
 export default function TextSubmissionForm() {
@@ -11,7 +10,7 @@ export default function TextSubmissionForm() {
         composeBody: string;
     }>();
     const { onBlur, ...restRegister } = register("composeTitle");
-    const { isDirty, errors, touchedFields } = useFormState({ control });
+    const { isDirty, touchedFields } = useFormState({ control });
     const shouldShowTextarea =
         state.inputHasBeenFocused ||
         isDirty ||

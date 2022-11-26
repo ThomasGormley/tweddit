@@ -1,10 +1,7 @@
-import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import PostToSubreddit from "./post-to-subreddit/post-to-subreddit";
 import PostButtons from "./post-to-subreddit/post-buttons";
-import { FormProvider, useForm, useFormState } from "react-hook-form";
-import TextareaField from "@/components/forms/TextareaField";
-import InputField from "@/components/forms/InputField";
+import { FormProvider, useForm } from "react-hook-form";
 import { useWhatsHappeningState } from "./hooks/whats-happening-context";
 import TextSubmissionForm from "./form/text-submission-form";
 import useCurrentSubreddit from "@/hooks/use-current-subreddit";
@@ -13,7 +10,7 @@ import LinkSubmissionForm from "./form/link-submission-form";
 export function WhatsHappening() {
     const currentSubreddit = useCurrentSubreddit();
     const { state } = useWhatsHappeningState();
-    const [postToSubreddit, setPostToSubreddit] = useState(currentSubreddit);
+    const [postToSubreddit] = useState(currentSubreddit);
 
     const linkSubmissionMethods = useForm({
         defaultValues: {

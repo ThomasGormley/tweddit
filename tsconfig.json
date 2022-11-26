@@ -18,6 +18,7 @@
         "rootDir": ".",
         "paths": {
             "@/components/*": ["src/components/*"],
+            "@/features/*": ["src/features/*"],
             "@/pages/*": ["src/pages/*"],
             "@/hooks/*": ["src/hooks/*"],
             "@/types/*": ["src/types/*"],

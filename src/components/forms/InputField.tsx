@@ -8,13 +8,19 @@ interface InputFieldProps extends React.ComponentProps<"input"> {
 type Ref = HTMLInputElement;
 
 const InputField = React.forwardRef<Ref, InputFieldProps>(
-    ({ name, labelClass, label, ...rest }, ref) => {
+    ({ name, labelClass, label, id, type = "text", ...rest }, ref) => {
         return (
             <>
-                <label htmlFor={name} className={labelClass}>
+                <label htmlFor={id ?? name} className={labelClass}>
                     {label}
                 </label>
-                <input name={name} {...rest} ref={ref} />
+                <input
+                    type={type}
+                    name={name}
+                    id={id ?? name}
+                    {...rest}
+                    ref={ref}
+                />
             </>
         );
     },

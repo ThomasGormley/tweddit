@@ -45,7 +45,7 @@ module.exports = {
                 xl: ["24px", "32px"],
             },
             boxShadow: {
-                glow: "0 0px 12px -1px rgba(0, 0, 0, 0.3)",
+                glow: "0 0px 3px -1px rgba(0, 0, 0, 0.3)",
             },
         },
     },

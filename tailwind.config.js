@@ -3,7 +3,7 @@ const safeAreaPlugin = require("tailwindcss-safe-area");
 module.exports = {
     content: [
         "./src/pages/**/*.{js,ts,jsx,tsx}",
-        "./src/components/**/*.{js,ts,jsx,tsx}",
+        "./src/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
         screens: {
@@ -43,6 +43,9 @@ module.exports = {
                 base: ["16px", "24px"],
                 lg: ["20px", "28px"],
                 xl: ["24px", "32px"],
+            },
+            boxShadow: {
+                glow: "0 0px 3px -1px rgba(0, 0, 0, 0.3)",
             },
         },
     },

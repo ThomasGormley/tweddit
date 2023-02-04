@@ -18,6 +18,7 @@ export default {
         reddit: {
             "access-token": "https://www.reddit.com/api/v1/access_token?",
             oauth: "https://oauth.reddit.com",
+            base: "https://www.reddit.com",
         },
     },
     reddit: {

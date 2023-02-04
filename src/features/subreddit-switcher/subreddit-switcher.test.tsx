@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import mockRouter from "next-router-mock";
 import userEvent from "@testing-library/user-event";
 import { SubredditSwitcher } from "./subreddit-switcher";

@@ -1,7 +1,7 @@
 import useCurrentSubreddit from "@/hooks/use-current-subreddit";
 import { useRouter } from "next/router";
 import Banner from "./banner";
-import { SubredditSwitcher } from "./subreddit-switcher";
+import { SubredditSwitcher } from "../features/subreddit-switcher/subreddit-switcher";
 import UserAvatar from "./user-avatar";
 
 export function CurrentSubredditBanner() {

@@ -33,8 +33,6 @@ describe("<WhatsHappening />", () => {
         screen.getByRole("button", { name: /Send replies to my inbox/i });
     });
 
-    
-
     describe("when the user interacts with the link form", () => {
         it("should render additional form inputs", async () => {
             userEvent.setup();
@@ -49,6 +47,6 @@ describe("<WhatsHappening />", () => {
     });
 
     describe('when the user clicks the "Submit a text based post" button', () => {
-        it('should render ')
+        it.skip("should render ");
     });
 });

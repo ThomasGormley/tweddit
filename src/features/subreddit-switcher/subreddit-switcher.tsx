@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { useRouter } from "next/router";
 import React, { Fragment, ReactNode, useState } from "react";
 import { useDebounce } from "usehooks-ts";
-import LoadingSpinner from "./loading-spinner";
+import LoadingSpinner from "../../components/loading-spinner";
 
 export function SubredditSwitcher() {
     const current = useCurrentSubreddit();
